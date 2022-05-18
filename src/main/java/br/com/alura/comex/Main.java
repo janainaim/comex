@@ -27,7 +27,7 @@ public class Main extends ProcessadorDeCsv {
         System.out.println("#### RELATÓRIO DE CLIENTES FIÉIS");
         relatorioDeClientesFieis.getQuantidadeDePedidosPorCliente().forEach((q1, q2) -> System.out.println("\n NOME: " +q1+ "\n Nº DE PEDIDOS: " +q2));
 
-        System.out.println("\n\n");
+        System.out.println("\n");
 
         System.out.println("#### RELATÓRIO DE VALORES TOTAIS");
         System.out.printf("- TOTAL DE PEDIDOS REALIZADOS: %s\n", relatorioSintetico.getTotalDePedidosRealizados());
