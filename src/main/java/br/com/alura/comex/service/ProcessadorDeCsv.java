@@ -20,7 +20,7 @@ public class ProcessadorDeCsv {
 
         try {
             URL recursoCSV = ClassLoader.getSystemResource(nomeArquivo);
-            Path caminhoDoArquivo = caminhoDoArquivo = Path.of(recursoCSV.toURI());
+            Path caminhoDoArquivo = Path.of(recursoCSV.toURI());
 
             Scanner leitorDeLinhas = new Scanner(caminhoDoArquivo);
 

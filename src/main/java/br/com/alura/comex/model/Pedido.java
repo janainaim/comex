@@ -80,17 +80,7 @@ public class Pedido {
 
     public BigDecimal getValorTotal(){
 
-        return valorTotal;
-    }
-
-    public boolean isMaisBaratoQue(Pedido outroPedido) {
-
-        return pedidoMaisBaratoQue;
-    }
-
-    public boolean isMaisCaroQue(Pedido outroPedido){
-
-        return pedidoMaisCaroQue;
+        return preco.multiply(BigDecimal.valueOf(quantidade));
     }
 
     @Override

@@ -10,33 +10,32 @@ import java.util.List;
 public class RelatorioSintetico {
 
 
-    int totalDeProdutosVendidos = 0;
-    int totalDePedidosRealizados = 0;
-    BigDecimal montanteDeVendas = BigDecimal.ZERO;
-    Pedido pedidoMaisBarato = null;
-    Pedido pedidoMaisCaro = null;
-    CategoriasProcessadas categoriasProcessadas = new CategoriasProcessadas();
-    int totalDeCategorias = 0;
+    private int totalDeProdutosVendidos = 0;
+    private int totalDePedidosRealizados = 0;
+    private BigDecimal montanteDeVendas = BigDecimal.ZERO;
+    private Pedido pedidoMaisBarato = null;
+    private Pedido pedidoMaisCaro = null;
+    private CategoriasProcessadas categoriasProcessadas = new CategoriasProcessadas();
+    private long totalDeCategorias = 0;
 
 
 
     public RelatorioSintetico(List<Pedido> pedidos){
 
 
-            pedidoMaisBarato = pedidos.stream().min(Comparator.comparing(p -> p.getPreco().multiply(BigDecimal.valueOf(p.getQuantidade())))).get();
+            pedidoMaisBarato = pedidos.stream().min(Comparator.comparing(Pedido::getValorTotal)).orElseThrow(() -> new IllegalStateException(""));
 
-            pedidoMaisCaro = pedidos.stream().max(Comparator.comparing(p -> p.getPreco().multiply(BigDecimal.valueOf(p.getQuantidade())))).get();
-
+            pedidoMaisCaro = pedidos.stream().max(Comparator.comparing(Pedido::getValorTotal)).orElseThrow(() -> new IllegalStateException(""));
 
             montanteDeVendas = pedidos.stream()
-                    .map(p -> p.getPreco().multiply(BigDecimal.valueOf(p.getQuantidade())))
+                    .map(Pedido::getValorTotal)
                     .reduce(BigDecimal.ZERO, BigDecimal::add);
 
             totalDeProdutosVendidos = pedidos.stream().mapToInt(Pedido::getQuantidade).sum();
 
             totalDePedidosRealizados = pedidos.size();
 
-            totalDeCategorias = (int) pedidos.stream().map(Pedido::getCategoria).distinct().count();
+            totalDeCategorias = pedidos.stream().map(Pedido::getCategoria).distinct().count();
 
         }
 
@@ -88,7 +87,7 @@ public class RelatorioSintetico {
         this.categoriasProcessadas = categoriasProcessadas;
     }
 
-    public int getTotalDeCategorias() {
+    public long getTotalDeCategorias() {
         return totalDeCategorias;
     }
 
