@@ -1,14 +1,15 @@
 package br.com.alura.comex;
 
+import br.com.alura.comex.model.Pedido;
+import br.com.alura.comex.service.ProcessadorDeCsv;
+import br.com.alura.comex.service.RelatorioDeClientesFieis;
+import br.com.alura.comex.service.RelatorioSintetico;
+
 import java.io.IOException;
 import java.math.BigDecimal;
 import java.math.RoundingMode;
 import java.net.URISyntaxException;
-import java.net.URL;
-import java.nio.file.Path;
 import java.text.NumberFormat;
-import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
 import java.util.*;
 
 public class Main extends ProcessadorDeCsv {
@@ -18,7 +19,16 @@ public class Main extends ProcessadorDeCsv {
 
         List<Pedido> pedidos = listarPedidos("pedidos.csv");
 
+        //Transformar os relatórios em uma estrutura de interface e trazer uma lista** posteriormente
         RelatorioSintetico relatorioSintetico = new RelatorioSintetico(pedidos);
+
+        RelatorioDeClientesFieis relatorioDeClientesFieis = new RelatorioDeClientesFieis(pedidos);
+
+
+        System.out.println("#### RELATÓRIO DE CLIENTES FIÉIS");
+        relatorioDeClientesFieis.getQuantidadeDePedidosPorCliente().forEach((q1, q2) -> System.out.println("\n NOME: " +q1+ "\n Nº DE PEDIDOS: " +q2));
+
+        System.out.println("\n\n");
 
         System.out.println("#### RELATÓRIO DE VALORES TOTAIS");
         System.out.printf("- TOTAL DE PEDIDOS REALIZADOS: %s\n", relatorioSintetico.getTotalDePedidosRealizados());
