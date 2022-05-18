@@ -1,7 +1,9 @@
 package br.com.alura.comex;
 
 import java.math.BigDecimal;
+import java.util.Comparator;
 import java.util.List;
+import java.util.Optional;
 
 public class RelatorioSintetico {
 
@@ -17,31 +19,56 @@ public class RelatorioSintetico {
 
 
     public RelatorioSintetico(List<Pedido> pedidos){
-        for (int i = 0; i < pedidos.size(); i++) {
-            Pedido pedidoAtual = pedidos.get(i);
+//        for (int i = 0; i < pedidos.size(); i++) {
+//            Pedido pedidoAtual = pedidos.get(i);
+//
+//            if (pedidoAtual == null) {
+//                break;
+//            }
 
-            if (pedidoAtual == null) {
-                break;
-            }
+//            if (pedidoMaisBarato == null ||
+//                    pedidoAtual.getPreco()
+//                            .multiply(new BigDecimal(pedidoAtual.getQuantidade()))
+//                            .compareTo(pedidoMaisBarato.getPreco().multiply(new BigDecimal(pedidoMaisBarato.getQuantidade()))) < 0) {
+//                pedidoMaisBarato = pedidoAtual;
+//            }
 
-            if (pedidoMaisBarato == null || pedidoAtual.getPreco().multiply(new BigDecimal(pedidoAtual.getQuantidade())).compareTo(pedidoMaisBarato.getPreco().multiply(new BigDecimal(pedidoMaisBarato.getQuantidade()))) < 0) {
-                pedidoMaisBarato = pedidoAtual;
-            }
 
-            if (pedidoMaisCaro == null || pedidoAtual.getPreco().multiply(new BigDecimal(pedidoAtual.getQuantidade())).compareTo(pedidoMaisCaro.getPreco().multiply(new BigDecimal(pedidoMaisCaro.getQuantidade()))) > 0) {
-                pedidoMaisCaro = pedidoAtual;
-            }
+            pedidoMaisBarato = pedidos.stream().min(Comparator.comparing(p -> p.getPreco().multiply(BigDecimal.valueOf(p.getQuantidade())))).get();
 
-            montanteDeVendas = montanteDeVendas.add(pedidoAtual.getPreco().multiply(new BigDecimal(pedidoAtual.getQuantidade())));
-            totalDeProdutosVendidos += pedidoAtual.getQuantidade();
-            totalDePedidosRealizados++;
+            //pedidos.stream().min(p -> p.getPreco().multiply(p.getQuantidade()).)
 
-            if (!categoriasProcessadas.contains(pedidoAtual.getCategoria())) {
-                totalDeCategorias++;
-                categoriasProcessadas.add(pedidoAtual.getCategoria());
-            }
+
+
+//            pedidoMaisBarato = pedidos.stream().min(p -> p.getPreco()
+//                    .multiply(new BigDecimal(p.getQuantidade()));
+
+//            if (pedidoMaisCaro == null || pedidoAtual.getPreco().multiply(new BigDecimal(pedidoAtual.getQuantidade())).compareTo(pedidoMaisCaro.getPreco().multiply(new BigDecimal(pedidoMaisCaro.getQuantidade()))) > 0) {
+//                pedidoMaisCaro = pedidoAtual;
+//            }
+            pedidoMaisCaro = pedidos.stream().max(Comparator.comparing(p -> p.getPreco().multiply(BigDecimal.valueOf(p.getQuantidade())))).get();
+
+            //montanteDeVendas = montanteDeVendas.add(pedidoAtual.getPreco().multiply(new BigDecimal(pedidoAtual.getQuantidade())));
+            montanteDeVendas = pedidos.stream()
+                    .map(p -> p.getPreco().multiply(BigDecimal.valueOf(p.getQuantidade())))
+                    .reduce(BigDecimal.ZERO, BigDecimal::add);
+
+            //totalDeProdutosVendidos += pedidoAtual.getQuantidade();
+            totalDeProdutosVendidos = pedidos.stream().mapToInt(Pedido::getQuantidade).sum();
+
+            //totalDePedidosRealizados++;
+            totalDePedidosRealizados = pedidos.size();
+
+
+//            if (!categoriasProcessadas.contains(pedidoAtual.getCategoria())) {
+//                totalDeCategorias++;
+//                categoriasProcessadas.add(pedidoAtual.getCategoria());
+//            }
+            //contar todas as categorias diferentes
+
+            totalDeCategorias = (int) pedidos.stream().map(Pedido::getCategoria).distinct().count();
         }
-    }
+//    }
 
     public int getTotalDeProdutosVendidos() {
         return totalDeProdutosVendidos;
