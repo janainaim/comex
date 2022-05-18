@@ -11,21 +11,9 @@ public class RelatorioDeClientesFieis {
     Map<String, Long> quantidadeDePedidosPorCliente;
     public RelatorioDeClientesFieis(List<Pedido> pedidos){
 
-         /*
-        Teste dos clientes fieis
-         */
-        //long result = pedidos.stream().map(p -> p.getCliente()).distinct().count();
-
         //Não consegui o sort
-
-
         quantidadeDePedidosPorCliente = pedidos.stream().collect(Collectors.groupingBy(Pedido::getCliente,
                 Collectors.counting()));
-
-
-        //Collections.sort(quantidadeDePedidosPorCliente.forEach((q1, q2) -> System.out.println(q1+ "ff" +q2)));
-        quantidadeDePedidosPorCliente.forEach((q1, q2) -> System.out.println(q1+ "ff" +q2));
-
 
     }
 
