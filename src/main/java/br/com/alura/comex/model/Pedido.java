@@ -13,9 +13,6 @@ public class Pedido {
     private int quantidade;
     private LocalDate data;
 
-    private BigDecimal valorTotal;
-    private boolean pedidoMaisBaratoQue;
-    private boolean pedidoMaisCaroQue;
 
     public Pedido(String categoria, String produto, String cliente, BigDecimal preco, int quantidade, LocalDate data) {
         this.categoria = categoria;
@@ -54,28 +51,9 @@ public class Pedido {
         this.categoria = categoria;
     }
 
-    public void setValorTotal(BigDecimal valorTotal) {
-        this.valorTotal = valorTotal;
-    }
 
     public void setProduto(String produto) {
         this.produto = produto;
-    }
-
-    public boolean isPedidoMaisBaratoQue() {
-        return pedidoMaisBaratoQue;
-    }
-
-    public void setPedidoMaisBaratoQue(boolean pedidoMaisBaratoQue) {
-        this.pedidoMaisBaratoQue = pedidoMaisBaratoQue;
-    }
-
-    public boolean isPedidoMaisCaroQue() {
-        return pedidoMaisCaroQue;
-    }
-
-    public void setPedidoMaisCaroQue(boolean pedidoMaisCaroQue) {
-        this.pedidoMaisCaroQue = pedidoMaisCaroQue;
     }
 
     public BigDecimal getValorTotal(){

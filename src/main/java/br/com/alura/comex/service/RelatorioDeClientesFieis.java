@@ -18,12 +18,6 @@ public class RelatorioDeClientesFieis {
     }
 
     public Map<String, Long> getQuantidadeDePedidosPorCliente() {
-
-
         return quantidadeDePedidosPorCliente;
-    }
-
-    public void setQuantidadeDePedidosPorCliente(Map<String, Long> quantidadeDePedidosPorCliente) {
-        this.quantidadeDePedidosPorCliente = quantidadeDePedidosPorCliente;
     }
 }

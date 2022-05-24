@@ -43,55 +43,28 @@ public class RelatorioSintetico {
         return totalDeProdutosVendidos;
     }
 
-    public void setTotalDeProdutosVendidos(int totalDeProdutosVendidos) {
-        this.totalDeProdutosVendidos = totalDeProdutosVendidos;
-    }
-
     public int getTotalDePedidosRealizados() {
         return totalDePedidosRealizados;
-    }
-
-    public void setTotalDePedidosRealizados(int totalDePedidosRealizados) {
-        this.totalDePedidosRealizados = totalDePedidosRealizados;
     }
 
     public BigDecimal getMontanteDeVendas() {
         return montanteDeVendas;
     }
 
-    public void setMontanteDeVendas(BigDecimal montanteDeVendas) {
-        this.montanteDeVendas = montanteDeVendas;
-    }
-
     public Pedido getPedidoMaisBarato() {
         return pedidoMaisBarato;
-    }
-
-    public void setPedidoMaisBarato(Pedido pedidoMaisBarato) {
-        this.pedidoMaisBarato = pedidoMaisBarato;
     }
 
     public Pedido getPedidoMaisCaro() {
         return pedidoMaisCaro;
     }
 
-    public void setPedidoMaisCaro(Pedido pedidoMaisCaro) {
-        this.pedidoMaisCaro = pedidoMaisCaro;
-    }
-
     public CategoriasProcessadas getCategoriasProcessadas() {
         return categoriasProcessadas;
-    }
-
-    public void setCategoriasProcessadas(CategoriasProcessadas categoriasProcessadas) {
-        this.categoriasProcessadas = categoriasProcessadas;
     }
 
     public long getTotalDeCategorias() {
         return totalDeCategorias;
     }
 
-    public void setTotalDeCategorias(int totalDeCategorias) {
-        this.totalDeCategorias = totalDeCategorias;
-    }
 }
