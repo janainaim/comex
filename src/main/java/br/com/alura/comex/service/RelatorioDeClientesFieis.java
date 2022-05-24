@@ -12,8 +12,8 @@ public class RelatorioDeClientesFieis {
     Map<String, Long> quantidadeDePedidosPorCliente;
     public RelatorioDeClientesFieis(List<Pedido> pedidos){
 
-        quantidadeDePedidosPorCliente = pedidos.stream().collect(Collectors.groupingBy(Pedido::getCliente, TreeMap::new,
-                Collectors.counting()));
+        quantidadeDePedidosPorCliente = pedidos.stream()
+                .collect(Collectors.groupingBy(Pedido::getCliente, TreeMap::new, Collectors.counting()));
 
     }
 

@@ -43,19 +43,6 @@ public class Pedido {
         return quantidade;
     }
 
-    public LocalDate getData() {
-        return data;
-    }
-
-    public void setCategoria(String categoria) {
-        this.categoria = categoria;
-    }
-
-
-    public void setProduto(String produto) {
-        this.produto = produto;
-    }
-
     public BigDecimal getValorTotal(){
 
         return preco.multiply(BigDecimal.valueOf(quantidade));

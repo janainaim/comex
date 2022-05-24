@@ -20,29 +20,13 @@ public class ProcessadorDeCsv {
 
         try {
             URL recursoCSV = ClassLoader.getSystemResource(nomeArquivo);
-            Path caminhoDoArquivo = Path.of(recursoCSV.toURI());
 
-            Scanner leitorDeLinhas = new Scanner(caminhoDoArquivo);
+            Scanner leitorDeLinhas = new Scanner(Path.of(recursoCSV.toURI()));
 
             leitorDeLinhas.nextLine();
 
-            int quantidadeDeRegistros = 0;
-            while (leitorDeLinhas.hasNextLine()) {
-                String linha = leitorDeLinhas.nextLine();
-                String[] registro = linha.split(",");
+            gerarListaDePedidos(pedidos, leitorDeLinhas);
 
-                String categoria = registro[0];
-                String produto = registro[1];
-                BigDecimal preco = new BigDecimal(registro[2]);
-                int quantidade = Integer.parseInt(registro[3]);
-                LocalDate data = LocalDate.parse(registro[4], DateTimeFormatter.ofPattern("dd/MM/yyyy"));
-                String cliente = registro[5];
-
-                Pedido pedido = new Pedido(categoria, produto, cliente, preco, quantidade, data);
-                pedidos.add(pedido);
-
-                quantidadeDeRegistros++;
-            }
         } catch (
                 URISyntaxException e) {
             throw new RuntimeException("Arquivo pedido.csv não localizado!");
@@ -51,5 +35,25 @@ public class ProcessadorDeCsv {
             throw new RuntimeException("Erro ao abrir Scanner para processar arquivo!");
         }
         return pedidos;
+    }
+
+    private static void gerarListaDePedidos(List<Pedido> pedidos, Scanner leitorDeLinhas) {
+        int quantidadeDeRegistros = 0;
+        while (leitorDeLinhas.hasNextLine()) {
+            String linha = leitorDeLinhas.nextLine();
+            String[] registro = linha.split(",");
+
+            String categoria = registro[0];
+            String produto = registro[1];
+            BigDecimal preco = new BigDecimal(registro[2]);
+            int quantidade = Integer.parseInt(registro[3]);
+            LocalDate data = LocalDate.parse(registro[4], DateTimeFormatter.ofPattern("dd/MM/yyyy"));
+            String cliente = registro[5];
+
+            Pedido pedido = new Pedido(categoria, produto, cliente, preco, quantidade, data);
+            pedidos.add(pedido);
+
+            quantidadeDeRegistros++;
+        }
     }
 }
