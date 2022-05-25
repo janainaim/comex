@@ -21,8 +21,10 @@ public class RelatorioSintetico {
     public RelatorioSintetico(List<Pedido> pedidos){
 
 
+        //Extração de variável
         Comparator<Pedido> comparing = Comparator.comparing(Pedido::getValorTotal);
 
+        //Como não fiz as opcionais da semana passada ainda, acredito que se der tempo de criar os outros relatórios, outras refatorações surgirão ao longo dos processos
         pedidoMaisBarato = pedidos.stream().min(comparing).orElseThrow(() -> new IllegalStateException("Não foi possível obter o pedido mais barato!"));
         pedidoMaisCaro = pedidos.stream().max(comparing).orElseThrow(() -> new IllegalStateException("Não foi possível obter o pedido mais caro!"));
 

@@ -22,6 +22,7 @@ public class ProcessadorDeCsv extends ProcessadorAdapter {
         try {
             URL recursoCSV = ClassLoader.getSystemResource(nomeArquivo.concat(".csv"));
 
+            //Internalização de variável temporária
             Scanner leitorDeLinhas = new Scanner(Path.of(recursoCSV.toURI()));
 
             leitorDeLinhas.nextLine();
@@ -38,12 +39,15 @@ public class ProcessadorDeCsv extends ProcessadorAdapter {
         return pedidos;
     }
 
+    //Extração de método
     private static void gerarListaDePedidos(List<Pedido> pedidos, Scanner leitorDeLinhas) {
         int quantidadeDeRegistros = 0;
         while (leitorDeLinhas.hasNextLine()) {
             String linha = leitorDeLinhas.nextLine();
             String[] registro = linha.split(",");
 
+            //Aqui até poderia internalizar variáveis, mas a leitura ficaria confusa
+            //O ideal é refatorar toda a forma do CSV como foi sugerido no opcional da primeira semana
             String categoria = registro[0];
             String produto = registro[1];
             BigDecimal preco = new BigDecimal(registro[2]);
