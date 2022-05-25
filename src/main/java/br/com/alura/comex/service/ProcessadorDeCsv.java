@@ -1,5 +1,6 @@
 package br.com.alura.comex.service;
 
+import br.com.alura.comex.baseDados.ProcessadorAdapter;
 import br.com.alura.comex.model.Pedido;
 
 import java.io.IOException;
@@ -13,13 +14,13 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
-public class ProcessadorDeCsv {
+public class ProcessadorDeCsv extends ProcessadorAdapter {
 
-    public static List<Pedido> listarPedidos(String nomeArquivo) {
+    public List<Pedido> listarPedidos(String nomeArquivo) {
         List<Pedido> pedidos = new ArrayList<>();
 
         try {
-            URL recursoCSV = ClassLoader.getSystemResource(nomeArquivo);
+            URL recursoCSV = ClassLoader.getSystemResource(nomeArquivo.concat(".csv"));
 
             Scanner leitorDeLinhas = new Scanner(Path.of(recursoCSV.toURI()));
 

@@ -1,23 +1,23 @@
 package br.com.alura.comex;
 
+import br.com.alura.comex.baseDados.ProcessadorAdapter;
 import br.com.alura.comex.model.Pedido;
-import br.com.alura.comex.service.ProcessadorDeCsv;
-import br.com.alura.comex.service.RelatorioDeClientesFieis;
-import br.com.alura.comex.service.RelatorioSintetico;
+import br.com.alura.comex.service.*;
 
-import java.io.IOException;
 import java.math.BigDecimal;
 import java.math.RoundingMode;
-import java.net.URISyntaxException;
 import java.text.NumberFormat;
 import java.util.*;
 
-public class Main extends ProcessadorDeCsv {
+public class Main {
 
     public static void main(String[] args) {
 
 
-        List<Pedido> pedidos = listarPedidos("pedidos.csv");
+        //Troca o dataSet pelo new
+        ProcessadorAdapter processadorAdapter = new ProcessadorDeJson();
+
+        List<Pedido> pedidos = processadorAdapter.listarPedidos("pedidos");
 
         RelatorioSintetico relatorioSintetico = new RelatorioSintetico(pedidos);
 
