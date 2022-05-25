@@ -22,6 +22,9 @@ public class Pedido {
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd/MM/yyyy")
     private LocalDate data;
 
+    public Pedido(){
+        super();
+    }
 
     public Pedido(String categoria, String produto, String cliente, BigDecimal preco, int quantidade, LocalDate data) {
         this.categoria = categoria;
@@ -30,10 +33,6 @@ public class Pedido {
         this.preco = preco;
         this.quantidade = quantidade;
         this.data = data;
-    }
-
-    public Pedido(){
-        super();
     }
 
     public String getCategoria() {

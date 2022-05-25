@@ -9,12 +9,12 @@ import java.util.List;
 public class RelatorioSintetico {
 
 
-    private int totalDeProdutosVendidos = 0;
-    private int totalDePedidosRealizados = 0;
-    private BigDecimal montanteDeVendas;
-    private Pedido pedidoMaisBarato;
-    private Pedido pedidoMaisCaro;
-    private long totalDeCategorias;
+    private final int totalDeProdutosVendidos;
+    private final int totalDePedidosRealizados;
+    private final BigDecimal montanteDeVendas;
+    private final Pedido pedidoMaisBarato;
+    private final Pedido pedidoMaisCaro;
+    private final long totalDeCategorias;
 
 
 
