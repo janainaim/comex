@@ -1,4 +1,4 @@
-package br.com.alura.comex.service;
+package br.com.alura.comex.service.processador;
 
 import br.com.alura.comex.baseDados.ProcessadorAdapter;
 

@@ -1,4 +1,4 @@
-package br.com.alura.comex.service;
+package br.com.alura.comex.service.relatorios;
 
 import br.com.alura.comex.model.Pedido;
 
@@ -11,7 +11,7 @@ public class RelatorioDeVendasPorCategoria extends Relatorio {
 
     Map<String, List<Pedido>> filtrarRelatorio;
     List<VendasPorCategoria> vendasPorCategoria;
-    private Consumer<String> imprimirRelatorio;
+    private final Consumer<String> imprimirRelatorio;
 
     public RelatorioDeVendasPorCategoria(List<Pedido> pedidos, Consumer<String> imprimirRelatorio){
         super(pedidos);
@@ -39,8 +39,8 @@ public class RelatorioDeVendasPorCategoria extends Relatorio {
 
         NumberFormat numberFormat = NumberFormat.getCurrencyInstance(new Locale("pt", "BR"));
 
-        System.out.println("\n\n#### RELATÓRIO DE VENDAS POR CATEGORIA");
-        vendasPorCategoria.stream().forEach(vendasPorCategoria-> System.out.println("\nCATEGORIA: " +vendasPorCategoria.getCategoria()+
+        imprimirRelatorio.accept("\n\n#### RELATÓRIO DE VENDAS POR CATEGORIA");
+        vendasPorCategoria.stream().forEach(vendasPorCategoria-> imprimirRelatorio.accept("\nCATEGORIA: " +vendasPorCategoria.getCategoria()+
                 "\nQUANTIDADE VENDIDA: " +vendasPorCategoria.getQuantidadeVendida()+
                 "\nMONTANTE: " +numberFormat.format(vendasPorCategoria.getValorMontante())));
 

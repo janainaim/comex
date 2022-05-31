@@ -1,4 +1,4 @@
-package br.com.alura.comex.service;
+package br.com.alura.comex.service.relatorios;
 
 import br.com.alura.comex.model.Pedido;
 
@@ -45,8 +45,8 @@ public class RelatorioDeProdutosMaisCarosDeCadaCategoria extends Relatorio {
 
     @Override
     public void imprimirRelatorio() {
-        System.out.println("\n\n#### RELATÓRIO DE PRODUTOS MAIS CAROS DE CADA CATEGORIA - falta retornar produto mais caro");
-        vendasProdutoMaisCaro.stream().forEach(vendasProdutoMaisCaro -> System.out.println(
+        imprimirRelatorio.accept("\n\n#### RELATÓRIO DE PRODUTOS MAIS CAROS DE CADA CATEGORIA - falta retornar produto mais caro");
+        vendasProdutoMaisCaro.stream().forEach(vendasProdutoMaisCaro -> imprimirRelatorio.accept(
                 "\nCATEGORIA: " +vendasProdutoMaisCaro.getCategoria()+
                         "\nPRODUTO: " +vendasProdutoMaisCaro.getProduto()+
                         "\nPREÇO: " +vendasProdutoMaisCaro.getPreco()));

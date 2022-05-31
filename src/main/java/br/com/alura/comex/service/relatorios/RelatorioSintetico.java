@@ -1,4 +1,4 @@
-package br.com.alura.comex.service;
+package br.com.alura.comex.service.relatorios;
 
 import br.com.alura.comex.model.Pedido;
 

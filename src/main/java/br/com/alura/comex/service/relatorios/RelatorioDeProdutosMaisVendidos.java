@@ -1,4 +1,4 @@
-package br.com.alura.comex.service;
+package br.com.alura.comex.service.relatorios;
 
 import br.com.alura.comex.model.Pedido;
 
@@ -41,12 +41,10 @@ public class RelatorioDeProdutosMaisVendidos extends Relatorio{
 
     @Override
     public void imprimirRelatorio() {
-        //mudar para consumer posteriormente
-        System.out.println("\n#### RELATÓRIO DE PRODUTOS MAIS VENDIDOS");
-        vendasPorQuantidade.stream().forEach(vendasPorQuantidade -> {
-            System.out.println("\nPRODUTO: " +vendasPorQuantidade.getProduto()+
-                    "\nQUANTIDADE: " +vendasPorQuantidade.getQuantidadeVendida());
-        });
+        imprimirRelatorio.accept("\n#### RELATÓRIO DE PRODUTOS MAIS VENDIDOS");
+        vendasPorQuantidade.stream().forEach(vendasPorQuantidade ->
+            imprimirRelatorio.accept("\nPRODUTO: " +vendasPorQuantidade.getProduto()+
+                    "\nQUANTIDADE: " +vendasPorQuantidade.getQuantidadeVendida()));
 
     }
 }

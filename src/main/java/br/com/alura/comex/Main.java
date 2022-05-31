@@ -2,7 +2,8 @@ package br.com.alura.comex;
 
 import br.com.alura.comex.baseDados.ProcessadorAdapter;
 import br.com.alura.comex.model.Pedido;
-import br.com.alura.comex.service.*;
+import br.com.alura.comex.service.processador.ProcessadorDeJson;
+import br.com.alura.comex.service.relatorios.*;
 
 import java.math.BigDecimal;
 import java.math.RoundingMode;
@@ -43,20 +44,16 @@ public class Main {
         Consumer<String> teste = null;
 
         //#### RELATÓRIO DE CLIENTES FIÉIS
-        Relatorio relatorioDeClientesFieis = new RelatorioDeClientesFieis(pedidos, teste);
-        relatorioDeClientesFieis.gerarRelatorio();
+        new RelatorioDeClientesFieis(pedidos, System.out::println).gerarRelatorio();
 
         //#### RELATÓRIO DE PRODUTOS MAIS VENDIDOS
-        Relatorio relatorioDeProdutosMaisVendidos = new RelatorioDeProdutosMaisVendidos(pedidos, teste);
-        relatorioDeProdutosMaisVendidos.gerarRelatorio();
+        new RelatorioDeProdutosMaisVendidos(pedidos, System.out::println).gerarRelatorio();
 
         //#### RELATÓRIO DE VENDAS POR CATEGORIA
-        Relatorio relatorioDeVendasPorCategoria = new RelatorioDeVendasPorCategoria(pedidos, teste);
-        relatorioDeVendasPorCategoria.gerarRelatorio();
+        new RelatorioDeVendasPorCategoria(pedidos, System.out::println).gerarRelatorio();
 
         //#### RELATÓRIO DE PRODUTOS MAIS CAROS DE CADA CATEGORIA
-        Relatorio relatorioDeProdutosMaisCarosDeCadaCategoria = new RelatorioDeProdutosMaisCarosDeCadaCategoria(pedidos, teste);
-        relatorioDeProdutosMaisCarosDeCadaCategoria.gerarRelatorio();
+        new RelatorioDeProdutosMaisCarosDeCadaCategoria(pedidos, System.out::println).gerarRelatorio();
 
 
 

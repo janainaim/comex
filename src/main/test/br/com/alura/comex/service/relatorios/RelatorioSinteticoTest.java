@@ -1,5 +1,7 @@
+package br.com.alura.comex.service.relatorios;
+
 import br.com.alura.comex.model.Pedido;
-import br.com.alura.comex.service.RelatorioSintetico;
+import br.com.alura.comex.service.relatorios.RelatorioSintetico;
 import org.junit.Test;
 import org.mockito.Mock;
 import org.mockito.Mockito;
