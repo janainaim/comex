@@ -20,6 +20,9 @@ public abstract class Relatorio {
     public abstract void imprimirRelatorio();
 
     public void gerarRelatorio(){
+        if(pedidos == null || pedidos.isEmpty()){
+            throw new IllegalArgumentException("A lista de pedidos não deve ser vazia!");
+        }
         filtrarRelatorio();
         imprimirRelatorio();
     }

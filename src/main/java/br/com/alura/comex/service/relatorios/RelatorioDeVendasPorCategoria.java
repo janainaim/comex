@@ -46,4 +46,8 @@ public class RelatorioDeVendasPorCategoria extends Relatorio {
 
 
     }
+
+    public List<VendasPorCategoria> getVendasPorCategoria() {
+        return vendasPorCategoria;
+    }
 }
