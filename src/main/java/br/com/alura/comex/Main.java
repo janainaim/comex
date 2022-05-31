@@ -8,6 +8,7 @@ import java.math.BigDecimal;
 import java.math.RoundingMode;
 import java.text.NumberFormat;
 import java.util.*;
+import java.util.function.Consumer;
 
 public class Main {
 
@@ -18,18 +19,7 @@ public class Main {
         ProcessadorAdapter processadorAdapter = new ProcessadorDeJson();
 
         List<Pedido> pedidos = processadorAdapter.listarPedidos("pedidos");
-
-
-
         RelatorioSintetico relatorioSintetico = new RelatorioSintetico(pedidos);
-
-        RelatorioDeClientesFieis relatorioDeClientesFieis = new RelatorioDeClientesFieis(pedidos);
-
-
-        System.out.println("#### RELATÓRIO DE CLIENTES FIÉIS");
-        relatorioDeClientesFieis.getQuantidadeDePedidosPorCliente().forEach((q1, q2) -> System.out.println("\n NOME: " +q1+ "\n Nº DE PEDIDOS: " +q2));
-
-        System.out.println("\n");
 
         System.out.println("#### RELATÓRIO DE VALORES TOTAIS");
         System.out.printf("- TOTAL DE PEDIDOS REALIZADOS: %s\n", relatorioSintetico.getTotalDePedidosRealizados());
@@ -46,6 +36,30 @@ public class Main {
         System.out.printf("- PEDIDO MAIS BARATO: %s (%s)\n", currencyInstance.format(pedidoMaisBarato.getPreco().multiply(new BigDecimal(pedidoMaisBarato.getQuantidade())).setScale(2, RoundingMode.HALF_DOWN)), pedidoMaisBarato.getProduto());
 
         System.out.printf("- PEDIDO MAIS CARO: %s (%s)\n", currencyInstance.format(pedidoMaisCaro.getPreco().multiply(new BigDecimal(pedidoMaisCaro.getQuantidade())).setScale(2, RoundingMode.HALF_DOWN)), pedidoMaisCaro.getProduto());
-    }
+
+
+        //Relatórios para teste
+
+        Consumer<String> teste = null;
+
+        //#### RELATÓRIO DE CLIENTES FIÉIS
+        Relatorio relatorioDeClientesFieis = new RelatorioDeClientesFieis(pedidos, teste);
+        relatorioDeClientesFieis.gerarRelatorio();
+
+        //#### RELATÓRIO DE PRODUTOS MAIS VENDIDOS
+        Relatorio relatorioDeProdutosMaisVendidos = new RelatorioDeProdutosMaisVendidos(pedidos, teste);
+        relatorioDeProdutosMaisVendidos.gerarRelatorio();
+
+        //#### RELATÓRIO DE VENDAS POR CATEGORIA
+        Relatorio relatorioDeVendasPorCategoria = new RelatorioDeVendasPorCategoria(pedidos, teste);
+        relatorioDeVendasPorCategoria.gerarRelatorio();
+
+        //#### RELATÓRIO DE PRODUTOS MAIS CAROS DE CADA CATEGORIA
+        Relatorio relatorioDeProdutosMaisCarosDeCadaCategoria = new RelatorioDeProdutosMaisCarosDeCadaCategoria(pedidos, teste);
+        relatorioDeProdutosMaisCarosDeCadaCategoria.gerarRelatorio();
+
+
+
+     }
 
 }
