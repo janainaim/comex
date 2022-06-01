@@ -2,6 +2,7 @@ package br.com.alura.comex.service.relatorios;
 
 import br.com.alura.comex.baseDados.ProcessadorAdapter;
 import br.com.alura.comex.model.Pedido;
+import br.com.alura.comex.model.PedidoBuilder;
 import br.com.alura.comex.service.processador.ProcessadorDeCsv;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
@@ -13,6 +14,13 @@ import java.util.List;
 
 class RelatorioDeClientesMaisLucrativosTest {
 
+    private RelatorioDeClientesMaisLucrativos service;
+
+    public List<ClientesMaisLucrativos> iniciaRelatorioDeVendasPorCategoria(List<Pedido> pedidos){
+        this.service = new RelatorioDeClientesMaisLucrativos(pedidos, System.out::println);
+        service.gerarRelatorio();
+         return service.getClientesMaisLucrativos();
+    }
 
     @Test
     void deveRetornarORelatorioPresenteNaBaseDeDados(){
@@ -20,12 +28,8 @@ class RelatorioDeClientesMaisLucrativosTest {
         ProcessadorAdapter processadorAdapter = new ProcessadorDeCsv();
         List<Pedido> pedidos = processadorAdapter.listarPedidos("pedidos");
 
-        RelatorioDeClientesMaisLucrativos clientesMaisLucrativos =
-                new RelatorioDeClientesMaisLucrativos(pedidos, System.out::println);
-
         //2-Act
-        clientesMaisLucrativos.gerarRelatorio();
-        List<ClientesMaisLucrativos> resultado = clientesMaisLucrativos.getClientesMaisLucrativos();
+        List<ClientesMaisLucrativos> resultado = iniciaRelatorioDeVendasPorCategoria(pedidos);
 
         //3-Assert
         //Teste se nenhum dado retorna nulo
@@ -36,39 +40,37 @@ class RelatorioDeClientesMaisLucrativosTest {
     @Test
     void deveGerarORelatorioDeUmaListaComTresPedidosDaMesmaPessoa(){
         //1-Arrange
-        Pedido pedido1 = new Pedido("CELULARES",
-                "GALAXY S22",
-                "LUÍSA",
-                new BigDecimal("5000"),
-                1,
-                LocalDate.now());
-        Pedido pedido2 = new Pedido("CELULARES",
-                "MOTO G 26",
-                "LUÍSA",
-                new BigDecimal("4999"),
-                3,
-                LocalDate.now());
-
-        Pedido pedido3 = new Pedido("CELULARES",
-                "GALAXY S22",
-                "LUÍSA",
-                new BigDecimal("5000"),
-                1,
-                LocalDate.now());
-
-
-        List<Pedido> pedidos = List.of(pedido1, pedido2, pedido3);
-        RelatorioDeClientesMaisLucrativos clientesMaisLucrativos = new RelatorioDeClientesMaisLucrativos(pedidos, System.out::println);
+        List<Pedido> pedidos = List.of(new PedidoBuilder()
+                        .categoria("CELULARES")
+                        .produto("GALAXY S22")
+                        .cliente("LUÍSA")
+                        .preco(new BigDecimal("5000"))
+                        .quantidade(1)
+                        .data(LocalDate.now())
+                        .build(),
+                new PedidoBuilder()
+                        .categoria("CELULARES")
+                        .produto("MOTO G 26")
+                        .cliente("LUÍSA")
+                        .preco(new BigDecimal("4999"))
+                        .quantidade(3)
+                        .data(LocalDate.now())
+                        .build(),
+                new PedidoBuilder()
+                        .categoria("CELULARES")
+                        .produto("GALAXY S22")
+                        .cliente("LUÍSA")
+                        .preco(new BigDecimal("5000"))
+                        .quantidade(1)
+                        .data(LocalDate.now())
+                        .build());
 
         //2-Act
-        clientesMaisLucrativos.gerarRelatorio();
-        List<ClientesMaisLucrativos> resultado = clientesMaisLucrativos.getClientesMaisLucrativos();
-        ClientesMaisLucrativos clientesMaisLucrativos1 = resultado.get(0);
+        List<ClientesMaisLucrativos> resultado = iniciaRelatorioDeVendasPorCategoria(pedidos);
 
         //3-Assert
         //Retorno esperado de apenas um item na lista
         Assertions.assertEquals(1, resultado.size());
-
 
     }
 

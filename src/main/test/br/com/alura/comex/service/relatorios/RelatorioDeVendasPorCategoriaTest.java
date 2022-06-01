@@ -14,9 +14,10 @@ public class RelatorioDeVendasPorCategoriaTest {
 
     private RelatorioDeVendasPorCategoria service;
 
-    public void iniciaRelatorioDeVendasPorCategoria(List<Pedido> pedidos){
+    public List<VendasPorCategoria> iniciaRelatorioDeVendasPorCategoria(List<Pedido> pedidos){
         this.service = new RelatorioDeVendasPorCategoria(pedidos, System.out::println);
         service.gerarRelatorio();
+         return service.getVendasPorCategoria();
     }
 
 
@@ -44,10 +45,8 @@ public class RelatorioDeVendasPorCategoriaTest {
                 .data(LocalDate.now())
                 .build());
 
-        iniciaRelatorioDeVendasPorCategoria(pedidos);
-
         //2-Act
-        List<VendasPorCategoria> resultado = service.getVendasPorCategoria();
+        List<VendasPorCategoria> resultado = iniciaRelatorioDeVendasPorCategoria(pedidos);
         VendasPorCategoria vendasPorCategoriaRetorno = resultado.get(0);
 
         //3-Assert
@@ -67,10 +66,8 @@ public class RelatorioDeVendasPorCategoriaTest {
         ProcessadorAdapter processadorAdapter = new ProcessadorDeCsv();
         List<Pedido> pedidos = processadorAdapter.listarPedidos("pedidos");
 
-        iniciaRelatorioDeVendasPorCategoria(pedidos);
-
         //2-Act
-        List<VendasPorCategoria> resultado = service.getVendasPorCategoria();
+        List<VendasPorCategoria> resultado = iniciaRelatorioDeVendasPorCategoria(pedidos);
 
         //3-Assert
         //Teste se nenhum dado retorna nulo
@@ -105,10 +102,8 @@ public class RelatorioDeVendasPorCategoriaTest {
                         .data(LocalDate.now())
                         .build());
 
-        iniciaRelatorioDeVendasPorCategoria(pedidos);
-
         //2-Act
-        List<VendasPorCategoria> resultado = service.getVendasPorCategoria();
+        List<VendasPorCategoria> resultado =  iniciaRelatorioDeVendasPorCategoria(pedidos);
 
         //Verifica se os três pedidos retornaram um relatório com duas categorias
         assertEquals(2, resultado.size());

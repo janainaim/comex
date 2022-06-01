@@ -3,6 +3,7 @@ package br.com.alura.comex.service.relatorios;
 import br.com.alura.comex.model.Pedido;
 
 
+import java.math.BigDecimal;
 import java.util.*;
 import java.util.function.Consumer;
 import java.util.stream.Collectors;
