@@ -36,9 +36,11 @@ public class RelatorioDeClientesFieis extends Relatorio {
 
     @Override
     public void imprimirRelatorio() {
-        System.out.println("\n\n#### RELATÓRIO DE CLIENTES FIÉIS");
-        clientesFieis.stream().forEach(clientesFieis -> System.out.println("\nNOME: " +clientesFieis.getNomeCliente()+ "\nNº DE PEDIDOS: " +clientesFieis.getNumeroPedidos()));
+        imprimirRelatorio.accept("\n\n#### RELATÓRIO DE CLIENTES FIÉIS");
+        clientesFieis.stream().forEach(clientesFieis -> imprimirRelatorio.accept("\nNOME: " +clientesFieis.getNomeCliente()+ "\nNº DE PEDIDOS: " +clientesFieis.getNumeroPedidos()));
     }
 
-
+    public List<ClientesFieis> getClientesFieis() {
+        return clientesFieis;
+    }
 }

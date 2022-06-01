@@ -11,10 +11,6 @@ public class RelatorioDeProdutosMaisVendidos extends Relatorio{
 
     private Map<Integer, List<Pedido>> filtrarRelatorio;
 
-    public List<VendasPorQuantidade> getVendasPorQuantidade() {
-        return vendasPorQuantidade;
-    }
-
     private List<VendasPorQuantidade> vendasPorQuantidade;
 
     private Consumer<String> imprimirRelatorio;
@@ -46,5 +42,9 @@ public class RelatorioDeProdutosMaisVendidos extends Relatorio{
             imprimirRelatorio.accept("\nPRODUTO: " +vendasPorQuantidade.getProduto()+
                     "\nQUANTIDADE: " +vendasPorQuantidade.getQuantidadeVendida()));
 
+    }
+
+    public List<VendasPorQuantidade> getVendasPorQuantidade() {
+        return vendasPorQuantidade;
     }
 }
