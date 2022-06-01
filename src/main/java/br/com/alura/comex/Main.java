@@ -55,6 +55,8 @@ public class Main {
         //#### RELATÓRIO DE PRODUTOS MAIS CAROS DE CADA CATEGORIA
         new RelatorioDeProdutosMaisCarosDeCadaCategoria(pedidos, System.out::println).gerarRelatorio();
 
+        //#### RELATÓRIO DE CLIENTES MAIS LUCRATIVOS
+        new RelatorioDeClientesMaisLucrativos(pedidos, System.out::println).gerarRelatorio();
 
 
      }

@@ -28,7 +28,6 @@ public class RelatorioDeProdutosMaisCarosDeCadaCategoria extends Relatorio {
 
         vendasProdutoMaisCaro = filtrarRelatorio.entrySet().stream()
                 .sorted(Map.Entry.comparingByKey())
-                //.max(Comparator.comparing(entry -> entry.getValue().get(0).getPreco())).stream().findFirst()
                 .map(entry -> {
                     String categoria = entry.getKey();
                     //Cria um optional de pedido com o pedido mais caro de cada categoria
