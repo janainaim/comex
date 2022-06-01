@@ -3,7 +3,6 @@ package br.com.alura.comex.service.relatorios;
 import br.com.alura.comex.model.Pedido;
 
 
-import java.math.BigDecimal;
 import java.util.*;
 import java.util.function.Consumer;
 import java.util.stream.Collectors;
@@ -24,16 +23,6 @@ public class RelatorioDeProdutosMaisVendidos extends Relatorio{
 
     @Override
     public void filtrarRelatorio() {
-//        filtrarRelatorio = pedidos.stream().collect(Collectors.groupingBy(Pedido::getQuantidade));
-//        vendasPorQuantidade = filtrarRelatorio.entrySet()
-//                .stream()
-//                .sorted(Collections.reverseOrder(Map.Entry.comparingByKey()))
-//                .limit(3)
-//                .map(quantidade -> {
-//                    int quantidadeVendida = quantidade.getKey();
-//                    String produtoPorQuantidade = quantidade.getValue().get(0).getProduto();
-//                    return new VendasPorQuantidade(produtoPorQuantidade, quantidadeVendida);
-//                }).toList();
 
         filtrarRelatorio = pedidos.stream().collect(Collectors.groupingBy(Pedido::getProduto));
         vendasPorQuantidade = filtrarRelatorio.entrySet()
@@ -47,7 +36,7 @@ public class RelatorioDeProdutosMaisVendidos extends Relatorio{
                 }).toList();
 
 
-        //Lista reordenada e limitada as duas pessoas com o montante maior
+        //Lista reordenada e limitada aos três produtos mais vendidos
         vendasPorQuantidade = vendasPorQuantidade.stream().sorted(Collections.reverseOrder(Comparator.comparing(VendasPorQuantidade::getQuantidadeVendida))).limit(3).toList();
     }
 

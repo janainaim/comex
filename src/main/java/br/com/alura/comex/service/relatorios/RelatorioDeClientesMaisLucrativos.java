@@ -28,7 +28,6 @@ public class RelatorioDeClientesMaisLucrativos extends Relatorio{
         clientesMaisLucrativos = filtrarRelatorio.entrySet()
                 .stream()
                 .sorted(Map.Entry.comparingByKey())
-                //.limit(2)
                 .map(entry -> {
                    String cliente = entry.getKey();
                    long numeroPedidos = entry.getValue().stream().mapToLong(Pedido::getQuantidade).count();
