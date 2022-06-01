@@ -34,15 +34,15 @@ class RelatorioDeProdutosMaisVendidosTest {
                 .preco(new BigDecimal("200"))
                 .quantidade(3)
                 .data(LocalDate.now())
-                .build());
-//                new PedidoBuilder()
-//                        .categoria("LIVROS")
-//                        .produto("KINDLE")
-//                        .cliente("JOANA")
-//                        .preco(new BigDecimal("200"))
-//                        .quantidade(1)
-//                        .data(LocalDate.now())
-//                        .build());
+                .build(),
+                new PedidoBuilder()
+                        .categoria("LIVROS")
+                        .produto("KINDLE")
+                        .cliente("JOANA")
+                        .preco(new BigDecimal("200"))
+                        .quantidade(1)
+                        .data(LocalDate.now())
+                        .build());
 
         //2-Act
         List<VendasPorQuantidade> resultado = iniciaRelatorioDeVendasPorCategoria(pedidos);
@@ -54,9 +54,6 @@ class RelatorioDeProdutosMaisVendidosTest {
         //Comparação dos itens do pedido
         assertEquals("KINDLE", vendasPorQuantidade.getProduto());
         assertEquals(3, vendasPorQuantidade.getQuantidadeVendida());
-
-        //Se coloco dois produtos iguais, ele retorna os dois produtos, no caso, terei de consertar o RelatorioDeProdutosMaisVendidos
-        //Acredito que seja porque foi ordenado por quantidade e não por produto (verei isso em breve)
     }
 
     @Test

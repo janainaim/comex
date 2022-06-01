@@ -17,7 +17,7 @@ public class RelatorioDeVendasPorCategoriaTest {
     public List<VendasPorCategoria> iniciaRelatorioDeVendasPorCategoria(List<Pedido> pedidos){
         this.service = new RelatorioDeVendasPorCategoria(pedidos, System.out::println);
         service.gerarRelatorio();
-         return service.getVendasPorCategoria();
+        return service.getVendasPorCategoria();
     }
 
 

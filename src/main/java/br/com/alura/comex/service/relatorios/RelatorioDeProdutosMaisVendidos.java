@@ -10,7 +10,7 @@ import java.util.stream.Collectors;
 
 public class RelatorioDeProdutosMaisVendidos extends Relatorio{
 
-    private Map<Integer, List<Pedido>> filtrarRelatorio;
+    private Map<String, List<Pedido>> filtrarRelatorio;
 
     private List<VendasPorQuantidade> vendasPorQuantidade;
 
@@ -24,16 +24,31 @@ public class RelatorioDeProdutosMaisVendidos extends Relatorio{
 
     @Override
     public void filtrarRelatorio() {
-        filtrarRelatorio = pedidos.stream().collect(Collectors.groupingBy(Pedido::getQuantidade));
+//        filtrarRelatorio = pedidos.stream().collect(Collectors.groupingBy(Pedido::getQuantidade));
+//        vendasPorQuantidade = filtrarRelatorio.entrySet()
+//                .stream()
+//                .sorted(Collections.reverseOrder(Map.Entry.comparingByKey()))
+//                .limit(3)
+//                .map(quantidade -> {
+//                    int quantidadeVendida = quantidade.getKey();
+//                    String produtoPorQuantidade = quantidade.getValue().get(0).getProduto();
+//                    return new VendasPorQuantidade(produtoPorQuantidade, quantidadeVendida);
+//                }).toList();
+
+        filtrarRelatorio = pedidos.stream().collect(Collectors.groupingBy(Pedido::getProduto));
         vendasPorQuantidade = filtrarRelatorio.entrySet()
                 .stream()
-                .sorted(Collections.reverseOrder(Map.Entry.comparingByKey()))
-                .limit(3)
-                .map(quantidade -> {
-                    int quantidadeVendida = quantidade.getKey();
-                    String produtoPorQuantidade = quantidade.getValue().get(0).getProduto();
-                    return new VendasPorQuantidade(produtoPorQuantidade, quantidadeVendida);
+                .sorted(Map.Entry.comparingByKey())
+                .map(entry -> {
+                    Optional<Pedido> maiorVendaProduto = entry.getValue().stream().max(Comparator.comparing(Pedido::getQuantidade));
+                    int quantidadeVendida = maiorVendaProduto.get().getQuantidade();
+                    String produto = maiorVendaProduto.get().getProduto();
+                    return new VendasPorQuantidade(produto, quantidadeVendida);
                 }).toList();
+
+
+        //Lista reordenada e limitada as duas pessoas com o montante maior
+        vendasPorQuantidade = vendasPorQuantidade.stream().sorted(Collections.reverseOrder(Comparator.comparing(VendasPorQuantidade::getQuantidadeVendida))).limit(3).toList();
     }
 
     @Override
