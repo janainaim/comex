@@ -3,6 +3,7 @@ package br.com.alura.comex.dao;
 import br.com.alura.comex.model.Categoria;
 
 import javax.persistence.EntityManager;
+import java.util.List;
 
 
 public class CategoriaDao {
@@ -11,6 +12,20 @@ public class CategoriaDao {
 
     public CategoriaDao(EntityManager entityManager){
         this.entityManager = entityManager;
+    }
+
+    public Categoria buscarCategoriaPorId(Long id){
+        return entityManager.find(Categoria.class, id);
+    }
+
+    public List<Categoria> buscarTodasAsCategorias(){
+        String jpql = "SELECT p FROM Categoria p";
+        return entityManager.createQuery(jpql, Categoria.class).getResultList();
+    }
+
+    public List<Categoria> buscarTodasAsCategoriasInativas(){
+        String jpql = "SELECT p FROM Categoria p WHERE p.status == INATIVO";
+        return entityManager.createQuery(jpql, Categoria.class).getResultList();
     }
 
     public void cadastrarCategoria(Categoria categoria){

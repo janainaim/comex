@@ -22,6 +22,11 @@ public class Categoria {
         this.status = StatusDaCategoria.ATIVO;
     }
 
+    @Override
+    public String toString() {
+        return "Categoria [nome=" + nome + ", status=" + status +  "]";
+    }
+
     public String getNome() {
         return nome;
     }

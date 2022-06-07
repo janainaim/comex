@@ -22,7 +22,7 @@ public class MainCategoriaDao {
 
         categoriaDao.cadastrarCategoria(celulares);
 
-
+        categoriaDao.buscarTodasAsCategorias().forEach(System.out::println);
 
         entityManager.getTransaction().commit();
         entityManager.close();
