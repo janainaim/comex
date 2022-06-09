@@ -44,6 +44,17 @@ public class MainClienteDao {
                         "Recife",
                         "Pernambuco"));
 
+        Cliente plinia4 = new Cliente("Plinia Manai Borges",
+                "11122233344",
+                "11233334444",
+                new Endereco(
+                        "R. Alecrim Dourado",
+                        "12",
+                        "Que nasceu no campo",
+                        "Semeado",
+                        "Betim",
+                        "Minas Gerais"));
+
         EntityManager entityManager = JpaUtil.getEntityManager();
         ClienteDao clienteDao = new ClienteDao(entityManager);
 
@@ -53,6 +64,7 @@ public class MainClienteDao {
         clienteDao.cadastrarCliente(ana1);
         clienteDao.cadastrarCliente(jose2);
         clienteDao.cadastrarCliente(marcia3);
+        clienteDao.cadastrarCliente(plinia4);
 
         //Apresenta todos os clientes existentes
         clienteDao.buscarTodosOsClientes().forEach(System.out::println);

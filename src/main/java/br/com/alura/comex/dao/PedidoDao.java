@@ -31,7 +31,7 @@ public class PedidoDao {
                 "SUM(pedido)) " +
                 "FROM Pedido pedido, " +
                 "Cliente cliente " +
-                "WHERE pedido.id = cliente.id " +
+                "WHERE pedido.cliente.id = cliente.id " +
                 "GROUP BY cliente.nome";
         return entityManager.createQuery(jpql, RelatorioDeQuantidadeDePedidosPorClienteVo.class)
                 .getResultList();

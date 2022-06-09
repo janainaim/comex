@@ -8,6 +8,7 @@ import br.com.alura.comex.util.JpaUtil;
 import javax.persistence.EntityManager;
 import java.math.BigDecimal;
 import java.time.LocalDate;
+import java.util.List;
 
 public class MainPedidoDao {
 
@@ -17,17 +18,16 @@ public class MainPedidoDao {
 
     public static void main(String[] args) {
 
-        Cliente plinia = new Cliente("Plinia Manai Borges", "11122233344", "11233334444",
-                new Endereco("R. Alecrim Dourado", "12", "Que nasceu no campo", "Semeado", "Betim", "Minas Gerais"));
-        Pedido pedido = new Pedido(LocalDate.now(), plinia, new BigDecimal("0"), TipoDeDescontoPorPedido.NENHUM);
-
         EntityManager entityManager = JpaUtil.getEntityManager();
         ClienteDao clienteDao = new ClienteDao(entityManager);
         PedidoDao pedidoDao = new PedidoDao(entityManager);
 
         entityManager.getTransaction().begin();
 
-        clienteDao.cadastrarCliente(plinia);
+        Cliente plinia = clienteDao.buscarClientePorId(4L);
+
+        Pedido pedido = new Pedido(LocalDate.now(), plinia, new BigDecimal("0"), TipoDeDescontoPorPedido.NENHUM);
+
         pedidoDao.cadastrarPedido(pedido);
 
         pedidoDao.relatorioDeQuantidadeDePedidosPorClientes().forEach(System.out::println);
