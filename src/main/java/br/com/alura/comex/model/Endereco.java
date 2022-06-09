@@ -30,6 +30,15 @@ public class Endereco {
         this.estado = estado;
     }
 
+    @Override
+    public String toString() {
+        return "Produto [rua=" + rua + ", numero=" + numero +
+                ", complemento=" + complemento +
+                ", bairro=" + bairro +
+                ", cidade=" + cidade +
+                ", estado=" + estado + "]";
+    }
+
     public String getRua() {
         return rua;
     }

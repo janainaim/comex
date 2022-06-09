@@ -3,6 +3,8 @@ package br.com.alura.comex.model;
 import javax.persistence.*;
 import java.math.BigDecimal;
 import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 @Table(name = "pedidos")
@@ -20,6 +22,9 @@ public class Pedido {
     private BigDecimal desconto;
 
     private TipoDeDescontoPorPedido tipoDeDescontoPorPedido;
+
+    @OneToMany(mappedBy = "pedido", cascade = CascadeType.ALL)
+    private List<ItemDePedido> itens = new ArrayList<>();
 
     public Pedido() {
     }

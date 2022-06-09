@@ -35,4 +35,11 @@ public class Categoria {
         return status;
     }
 
+    public void setStatus(StatusDaCategoria status) {
+        this.status = status;
+    }
+
+    public void setNome(String nome) {
+        this.nome = nome;
+    }
 }

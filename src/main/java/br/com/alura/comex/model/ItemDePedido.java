@@ -39,6 +39,15 @@ public class ItemDePedido {
         this.tipoDeDescontoPorItemDePedido = tipoDeDescontoPorItemDePedido;
     }
 
+    @Override
+    public String toString() {
+        return "Produto [precoUnitario=" + precoUnitario + ", quantidade=" + quantidade +
+                ", produto=" + produto.toString() +
+                ", pedido=" + pedido.toString() +
+                ", desconto=" + desconto +
+                ", tipoDeDescontoPorItemDePedido=" + tipoDeDescontoPorItemDePedido + "]";
+    }
+
     public BigDecimal getPrecoUnitario() {
         return precoUnitario;
     }

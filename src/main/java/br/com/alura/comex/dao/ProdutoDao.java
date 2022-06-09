@@ -23,7 +23,7 @@ public class ProdutoDao {
     }
 
     public List<Produto> buscarTodosOsProdutosIndisponiveis(){
-        String jpql = "SELECT p FROM Produto p WHERE p.quantidade_em_estoque == 0";
+        String jpql = "SELECT p FROM Produto p WHERE p.quantidadeEmEstoque = 0";
         return entityManager.createQuery(jpql, Produto.class).getResultList();
     }
 

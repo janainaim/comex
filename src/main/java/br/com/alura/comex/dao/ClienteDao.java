@@ -23,8 +23,10 @@ public class ClienteDao {
     }
 
     public List<Cliente> buscarTodosOsClientesPorNome(String nome){
-        String jpql = "SELECT p FROM Cliente p WHERE p.nome == :nome";
-        return entityManager.createQuery(jpql, Cliente.class).getResultList();
+        String jpql = "SELECT p FROM Cliente p WHERE p.nome = :nome";
+        return entityManager.createQuery(jpql, Cliente.class)
+                .setParameter("nome", nome)
+                .getResultList();
     }
 
     public void cadastrarCliente(Cliente cliente){

@@ -17,7 +17,7 @@ public class Produto {
 
     private BigDecimal precoUnitario;
 
-    @Column(name = "quantidade_em_estoque")
+    //@Column(name = "quantidade_em_estoque")
     private Long quantidadeEmEstoque;
 
     @ManyToOne
@@ -32,6 +32,14 @@ public class Produto {
         this.precoUnitario = precoUnitario;
         this.quantidadeEmEstoque = quantidadeEmEstoque;
         this.categoria = categoria;
+    }
+
+    @Override
+    public String toString() {
+        return "Produto [nome=" + nome + ", descricao=" + descricao +
+                ", precoUnitario=" + precoUnitario +
+                ", quantidadeEmEstoque=" + quantidadeEmEstoque +
+                ", categoria=" + categoria.toString() +"]";
     }
 
     public String getNome() {

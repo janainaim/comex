@@ -30,6 +30,12 @@ public class Cliente {
         this.endereco = endereco;
     }
 
+    @Override
+    public String toString() {
+        return "Categoria [nome=" + nome + ", cpf=" + cpf +
+                ", celular=" + celular + ", endereco=" + endereco.toString() +  "]";
+    }
+
     public String getNome() {
         return nome;
     }

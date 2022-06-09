@@ -1,6 +1,7 @@
 package br.com.alura.comex.dao;
 
 import br.com.alura.comex.model.Categoria;
+import br.com.alura.comex.model.StatusDaCategoria;
 
 import javax.persistence.EntityManager;
 import java.util.List;
@@ -33,6 +34,12 @@ public class CategoriaDao {
     }
 
     public void atualizarCategoria(Categoria categoria) {
+        this.entityManager.merge(categoria);
+    }
+
+    public void inativarCategoria(Categoria categoria){
+        this.entityManager.merge(categoria);
+        categoria.setStatus(StatusDaCategoria.INATIVO);
         this.entityManager.merge(categoria);
     }
 

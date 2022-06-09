@@ -1,30 +1,69 @@
 package br.com.alura.comex.test;
 
-import br.com.alura.comex.dao.CategoriaDao;
-import br.com.alura.comex.model.Categoria;
+import br.com.alura.comex.dao.ClienteDao;
+import br.com.alura.comex.model.Cliente;
+import br.com.alura.comex.model.Endereco;
 import br.com.alura.comex.util.JpaUtil;
 
 import javax.persistence.EntityManager;
+import java.util.List;
 
 public class MainClienteDao {
 
-//cadastre 3 clientes;
-//pesquise clientes pelo nome.
+//cadastre 3 clientes; OK
+//pesquise clientes pelo nome. OK se for literal
 
     public static void main(String[] args) {
-//        Categoria celulares = new Categoria("CELULARES");
-//
-//        EntityManager entityManager = JpaUtil.getEntityManager();
-//        CategoriaDao categoriaDao = new CategoriaDao(entityManager);
-//
-//        entityManager.getTransaction().begin();
-//
-//        categoriaDao.cadastrarCategoria(celulares);
-//
-//        categoriaDao.buscarTodasAsCategorias().forEach(System.out::println);
-//
-//        entityManager.getTransaction().commit();
-//        entityManager.close();
+        Cliente ana1 = new Cliente("Ana de Oliveira",
+                "56789011121",
+                "11233334444",
+                new Endereco("R. José da Silva",
+                        "21",
+                        "Apto",
+                        "Lapa",
+                        "São Paulo",
+                        "São Paulo"));
+
+        Cliente jose2 = new Cliente("José da Silva",
+                "33455556666",
+                "123",
+                new Endereco("R. Ana de Oliveira",
+                        "12",
+                        "Casa",
+                        "Lagoa",
+                        "Rio de Janeiro",
+                        "Rio de Janeiro"));
+
+        Cliente marcia3 = new Cliente("Marcia Matos Moreira",
+                "12345678900",
+                "00122223333",
+                new Endereco("R. Lindeza de dois cantos",
+                        "222",
+                        "Apto",
+                        "Lindeza",
+                        "Recife",
+                        "Pernambuco"));
+
+        EntityManager entityManager = JpaUtil.getEntityManager();
+        ClienteDao clienteDao = new ClienteDao(entityManager);
+
+        entityManager.getTransaction().begin();
+
+        //Cadastra três clientes
+        clienteDao.cadastrarCliente(ana1);
+        clienteDao.cadastrarCliente(jose2);
+        clienteDao.cadastrarCliente(marcia3);
+
+        //Apresenta todos os clientes existentes
+        clienteDao.buscarTodosOsClientes().forEach(System.out::println);
+
+        //Procura um/uma cliente pelo nome
+        List<Cliente> buscaPorNome = clienteDao.buscarTodosOsClientesPorNome("Marcia Matos Moreira");
+
+        entityManager.getTransaction().commit();
+        entityManager.close();
+
+        System.out.println(buscaPorNome);
 
     }
 
