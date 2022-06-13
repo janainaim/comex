@@ -1,9 +1,11 @@
 package br.com.alura.comex.model;
 
-import javax.persistence.*;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
 
 @Entity
-@Table(name = "categorias")
 public class Categoria {
 
     @Id
@@ -12,34 +14,35 @@ public class Categoria {
 
     private String nome;
 
-    @Enumerated(EnumType.STRING)
-    private StatusDaCategoria status;
+//    @Enumerated(EnumType.STRING)
+//    private StatusDaCategoria status;
 
     public Categoria(){}
 
     public Categoria(String nome){
         this.nome = nome;
-        this.status = StatusDaCategoria.ATIVO;
+        //this.status = StatusDaCategoria.ATIVO;
     }
 
-    @Override
-    public String toString() {
-        return "Categoria [nome=" + nome + ", status=" + status +  "]";
-    }
+//    @Override
+//    public String toString() {
+//        return "Categoria [nome=" + nome + ", status=" + status +  "]";
+//    }
 
     public String getNome() {
         return nome;
     }
 
-    public StatusDaCategoria getStatus() {
-        return status;
-    }
+//    public StatusDaCategoria getStatus() {
+//        return status;
+//    }
 
-    public void setStatus(StatusDaCategoria status) {
-        this.status = status;
-    }
+//    public void setStatus(StatusDaCategoria status) {
+//        this.status = status;
+//    }
 
     public void setNome(String nome) {
         this.nome = nome;
     }
+
 }
