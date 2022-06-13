@@ -1,6 +1,8 @@
 package br.com.alura.comex.model;
 
 import javax.persistence.*;
+
+
 import java.math.BigDecimal;
 
 @Entity
