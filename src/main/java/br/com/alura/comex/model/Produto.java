@@ -4,6 +4,7 @@ import javax.persistence.*;
 
 
 import java.math.BigDecimal;
+import java.util.Optional;
 
 @Entity
 @Table(name = "produtos")
@@ -19,7 +20,7 @@ public class Produto {
 
     private BigDecimal precoUnitario;
 
-    //@Column(name = "quantidade_em_estoque")
+    @Column(name = "quantidade_em_estoque")
     private Long quantidadeEmEstoque;
 
     @ManyToOne
@@ -42,6 +43,10 @@ public class Produto {
                 ", precoUnitario=" + precoUnitario +
                 ", quantidadeEmEstoque=" + quantidadeEmEstoque +
                 ", categoria=" + categoria.toString() +"]";
+    }
+
+    public Long getId() {
+        return id;
     }
 
     public String getNome() {
