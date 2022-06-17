@@ -5,49 +5,49 @@ import javax.persistence.*;
 @Entity
 public class Categoria {
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+  @Id
+  @GeneratedValue(strategy = GenerationType.IDENTITY)
+  private Long id;
 
-    private String nome;
+  private String nome;
 
-    @Enumerated(EnumType.STRING)
-    private StatusDaCategoria status;
+  @Enumerated(EnumType.STRING)
+  private StatusDaCategoria status;
 
-    public Categoria(){}
+  public Categoria() { }
 
-    public Categoria(String nome){
-        this.nome = nome;
-        this.status = StatusDaCategoria.ATIVO;
-    }
+  public Categoria(String nome) {
+    this.nome = nome;
+    this.status = StatusDaCategoria.ATIVO;
+  }
 
-    @Override
-    public String toString() {
-        return "Categoria [nome=" + nome + ", status=" + status +  "]";
-    }
+  @Override
+  public String toString() {
+    return "Categoria [nome=" + nome + ", status=" + status +  "]";
+  }
 
-    public Long getId() {
-        return id;
-    }
+  public Long getId() {
+    return id;
+  }
 
-    public void setId(Long id) {
-        this.id = id;
-    }
+  public void setId(Long id) {
+    this.id = id;
+  }
 
-    public String getNome() {
-        return nome;
-    }
+  public String getNome() {
+    return nome;
+  }
 
-    public StatusDaCategoria getStatus() {
-        return status;
-    }
+  public StatusDaCategoria getStatus() {
+    return status;
+  }
 
-    public void setStatus(StatusDaCategoria status) {
-        this.status = status;
-    }
+  public void setStatus(StatusDaCategoria status) {
+    this.status = status;
+  }
 
-    public void setNome(String nome) {
-        this.nome = nome;
-    }
+  public void setNome(String nome) {
+    this.nome = nome;
+  }
 
 }

@@ -2,37 +2,35 @@ package br.com.alura.comex.controller.dto;
 
 import br.com.alura.comex.model.Categoria;
 import br.com.alura.comex.model.StatusDaCategoria;
-
 import java.util.List;
-import java.util.stream.Collectors;
 
 public class CategoriaDto {
 
-    private Long id;
+  private Long id;
 
-    private String nome;
+  private String nome;
 
-    private StatusDaCategoria status;
+  private StatusDaCategoria status;
 
-    public CategoriaDto(Categoria categoria) {
-        this.id = categoria.getId();
-        this.nome = categoria.getNome();
-        this.status = categoria.getStatus();
-    }
+  public CategoriaDto(Categoria categoria) {
+    this.id = categoria.getId();
+    this.nome = categoria.getNome();
+    this.status = categoria.getStatus();
+  }
 
-    public Long getId() {
-        return id;
-    }
+  public Long getId() {
+    return id;
+  }
 
-    public String getNome() {
-        return nome;
-    }
+  public String getNome() {
+    return nome;
+  }
 
-    public StatusDaCategoria getStatus() {
-        return status;
-    }
+  public StatusDaCategoria getStatus() {
+    return status;
+  }
 
-    public static List<CategoriaDto> converter(List<Categoria> categorias) {
-        return categorias.stream().map(CategoriaDto::new).collect(Collectors.toList());
-    }
+  public static List<CategoriaDto> converter(List<Categoria> categorias) {
+    return categorias.stream().map(CategoriaDto::new).toList();
+  }
 }

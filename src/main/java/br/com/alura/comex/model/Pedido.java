@@ -1,56 +1,56 @@
 package br.com.alura.comex.model;
 
-import javax.persistence.*;
 import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
+import javax.persistence.*;
 
 @Entity
 @Table(name = "pedidos")
 public class Pedido {
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+  @Id
+  @GeneratedValue(strategy = GenerationType.IDENTITY)
+  private Long id;
 
-    private LocalDate data;
+  private LocalDate data;
 
-    @ManyToOne
-    private Cliente cliente;
+  @ManyToOne
+  private Cliente cliente;
 
-    private BigDecimal desconto;
+  private BigDecimal desconto;
 
-    private TipoDeDescontoPorPedido tipoDeDescontoPorPedido;
+  private TipoDeDescontoPorPedido tipoDeDescontoPorPedido;
 
-    @OneToMany(mappedBy = "pedido", cascade = CascadeType.ALL)
-    private List<ItemDePedido> itens = new ArrayList<>();
+  @OneToMany(mappedBy = "pedido", cascade = CascadeType.ALL)
+  private List<ItemDePedido> itens = new ArrayList<>();
 
-    public Pedido() {
-    }
+  public Pedido() {
+  }
 
-    public Pedido(LocalDate data, Cliente cliente,
-                  BigDecimal desconto, TipoDeDescontoPorPedido tipoDeDescontoPorPedido) {
-        this.data = data;
-        this.cliente = cliente;
-        this.desconto = desconto;
-        this.tipoDeDescontoPorPedido = tipoDeDescontoPorPedido;
-    }
+  public Pedido(LocalDate data, Cliente cliente,
+                BigDecimal desconto, TipoDeDescontoPorPedido tipoDeDescontoPorPedido) {
+    this.data = data;
+    this.cliente = cliente;
+    this.desconto = desconto;
+    this.tipoDeDescontoPorPedido = tipoDeDescontoPorPedido;
+  }
 
-    public LocalDate getData() {
-        return data;
-    }
+  public LocalDate getData() {
+    return data;
+  }
 
 
-    public Cliente getCliente() {
-        return cliente;
-    }
+  public Cliente getCliente() {
+    return cliente;
+  }
 
-    public BigDecimal getDesconto() {
-        return desconto;
-    }
+  public BigDecimal getDesconto() {
+    return desconto;
+  }
 
-    public TipoDeDescontoPorPedido getTipoDeDescontoPorPedido() {
-        return tipoDeDescontoPorPedido;
-    }
+  public TipoDeDescontoPorPedido getTipoDeDescontoPorPedido() {
+    return tipoDeDescontoPorPedido;
+  }
 }
