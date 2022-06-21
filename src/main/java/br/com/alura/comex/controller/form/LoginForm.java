@@ -2,10 +2,15 @@ package br.com.alura.comex.controller.form;
 
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 
+import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.NotNull;
+
 public class LoginForm {
 
+  @NotEmpty @NotNull
   private String email;
 
+  @NotEmpty @NotNull
   private String senha;
 
   public String getEmail() {
