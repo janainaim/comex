@@ -21,6 +21,8 @@ public class Pedido {
 
   private BigDecimal desconto;
 
+//  @Column(name = "tipo_de_desconto_por_pedido")
+//  @Enumerated(EnumType.STRING)
   private TipoDeDescontoPorPedido tipoDeDescontoPorPedido;
 
   @OneToMany(mappedBy = "pedido", cascade = CascadeType.ALL)

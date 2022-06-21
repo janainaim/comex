@@ -19,21 +19,31 @@ public class Cliente {
   @Embedded
   private Endereco endereco;
 
+  @OneToOne
+  private Usuario usuario;
+
   public Cliente() {
   }
 
   public Cliente(String nome, String cpf,
-                 String celular, Endereco endereco) {
+                 String celular, Endereco endereco, Usuario usuario) {
     this.nome = nome;
     this.cpf = cpf;
     this.celular = celular;
     this.endereco = endereco;
+    this.usuario = usuario;
   }
 
   @Override
   public String toString() {
-    return "Categoria [nome=" + nome + ", cpf=" + cpf
-            + ", celular=" + celular + ", endereco=" + endereco.toString() +  "]";
+    return "Cliente{" +
+            "id=" + id +
+            ", nome='" + nome + '\'' +
+            ", cpf='" + cpf + '\'' +
+            ", celular='" + celular + '\'' +
+            ", endereco=" + endereco +
+            ", usuario=" + usuario +
+            '}';
   }
 
   public String getNome() {
@@ -50,5 +60,9 @@ public class Cliente {
 
   public Endereco getEndereco() {
     return endereco;
+  }
+
+  public Usuario getUsuario() {
+    return usuario;
   }
 }

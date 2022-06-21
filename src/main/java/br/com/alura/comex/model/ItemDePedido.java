@@ -24,6 +24,7 @@ public class ItemDePedido {
 
   private BigDecimal desconto;
 
+  @Column(name = "tipo_de_desconto_por_item_de_pedido")
   private TipoDeDescontoPorItemDePedido tipoDeDescontoPorItemDePedido;
 
   public ItemDePedido() {
@@ -43,10 +44,15 @@ public class ItemDePedido {
 
   @Override
   public String toString() {
-    return "Produto [precoUnitario=" + precoUnitario + ", quantidade=" + quantidade
-            + ", produto=" + produto.toString() + ", pedido=" + pedido.toString()
-            + ", desconto=" + desconto
-            + ", tipoDeDescontoPorItemDePedido=" + tipoDeDescontoPorItemDePedido + "]";
+    return "ItemDePedido{" +
+            "id=" + id +
+            ", precoUnitario=" + precoUnitario +
+            ", quantidade=" + quantidade +
+            ", produto=" + produto +
+            ", pedido=" + pedido +
+            ", desconto=" + desconto +
+            ", tipoDeDescontoPorItemDePedido=" + tipoDeDescontoPorItemDePedido +
+            '}';
   }
 
   public BigDecimal getPrecoUnitario() {
