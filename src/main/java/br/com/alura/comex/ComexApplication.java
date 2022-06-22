@@ -5,14 +5,11 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.cache.annotation.EnableCaching;
 import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
-import springfox.documentation.swagger2.annotations.EnableSwagger2;
 
 
 @EnableJpaRepositories
 @SpringBootApplication
 @EnableCaching
-@EnableSwagger2
 public class ComexApplication implements CommandLineRunner {
 
   public static void main(String[] args) {
@@ -21,7 +18,7 @@ public class ComexApplication implements CommandLineRunner {
 
   @Override
   public void run(String... args) {
-    System.out.println(new BCryptPasswordEncoder().encode("123456"));
+    //System.out.println(new BCryptPasswordEncoder().encode("123456"));
   }
 
 

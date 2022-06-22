@@ -2,7 +2,7 @@ package br.com.alura.comex.projecao;
 
 import java.math.BigDecimal;
 
-public interface PedidoProjecao {
+public interface RelatorioPedidoPorCategoriaProjecao {
 
   String getNomeCategoria();
 

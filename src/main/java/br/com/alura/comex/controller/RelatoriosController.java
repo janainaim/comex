@@ -1,6 +1,6 @@
 package br.com.alura.comex.controller;
 
-import br.com.alura.comex.projecao.PedidoProjecao;
+import br.com.alura.comex.projecao.RelatorioPedidoPorCategoriaProjecao;
 import br.com.alura.comex.repository.PedidoRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cache.annotation.Cacheable;
@@ -19,8 +19,8 @@ public class RelatoriosController {
 
   @GetMapping
   @Cacheable({"relatorioPorCategoria"})
-  public List<PedidoProjecao> pesquisaRelatorioPorCategoria() {
-    List<PedidoProjecao> list = pedidoRepository.gerarRelatorioDePedidosPorCategoria();
+  public List<RelatorioPedidoPorCategoriaProjecao> pesquisaRelatorioPorCategoria() {
+    List<RelatorioPedidoPorCategoriaProjecao> list = pedidoRepository.gerarRelatorioDePedidosPorCategoria();
     list.forEach(pedido -> System.out.println("Pedido: nome_da_categoria: "
             + pedido.getNomeCategoria()
             + " | quantidade_produtos_vendidos: " + pedido.getQuantidadeProdutosVendidos()

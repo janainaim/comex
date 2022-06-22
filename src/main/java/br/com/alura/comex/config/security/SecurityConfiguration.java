@@ -43,7 +43,10 @@ public class SecurityConfiguration {
             .antMatchers(HttpMethod.GET, "/categorias/**").permitAll()
             .antMatchers(HttpMethod.GET, "/produtos/**").permitAll()
             .antMatchers(HttpMethod.POST, "/auth/**").permitAll()
-            //.antMatchers(HttpMethod.GET, "/actuator/**").permitAll()
+            .antMatchers(HttpMethod.GET, "/actuator/**").permitAll()
+            .antMatchers("/swagger-ui/**").permitAll()
+            .antMatchers("/v3/api-docs/**").permitAll()
+            .antMatchers(HttpMethod.GET, "/aW52YWxpZGEgcmVsYXTDs3JpbyBkZSB2ZW5kYXM/**").permitAll()
             .anyRequest().authenticated()
             .and().csrf().disable()
             .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS);
