@@ -7,16 +7,13 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpMethod;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.config.annotation.ObjectPostProcessor;
-import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.authentication.configuration.AuthenticationConfiguration;
 import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
-import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
+import org.springframework.security.config.annotation.web.configuration.WebSecurityCustomizer;
 import org.springframework.security.config.http.SessionCreationPolicy;
-import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
-import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
 
 @Configuration
@@ -46,7 +43,7 @@ public class SecurityConfiguration {
             .antMatchers(HttpMethod.GET, "/categorias/**").permitAll()
             .antMatchers(HttpMethod.GET, "/produtos/**").permitAll()
             .antMatchers(HttpMethod.POST, "/auth/**").permitAll()
-            .antMatchers(HttpMethod.GET, "/actuator/**").permitAll()
+            //.antMatchers(HttpMethod.GET, "/actuator/**").permitAll()
             .anyRequest().authenticated()
             .and().csrf().disable()
             .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS);
@@ -55,10 +52,10 @@ public class SecurityConfiguration {
   }
 
 
-//  //Configuracoes de recursos estaticos(js, css, imagens, etc.)
-//  @Override
-//  public void configure(WebSecurity web) throws Exception {
-//    web.ignoring().antMatchers("/**.html", "/v2/api-docs", "/webjars/**", "/configuration/**", "/swagger-resources/**");
-//  }
+  //Configuracoes de recursos estaticos(js, css, imagens, etc.)
+  @Bean
+  public WebSecurityCustomizer webSecurityCustomizer() {
+    return web ->  web.ignoring().antMatchers("/**.html", "/v2/api-docs", "/webjars/**", "/configuration/**", "/swagger-resources/**");
+  }
 
 }
