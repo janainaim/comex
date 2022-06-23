@@ -28,9 +28,6 @@ public class Pedido {
   @OneToMany(mappedBy = "pedido", cascade = CascadeType.ALL)
   private List<ItemDePedido> itens = new ArrayList<>();
 
-  public Pedido() {
-  }
-
   public Pedido(LocalDate data, Cliente cliente,
                 BigDecimal desconto, TipoDeDescontoPorPedido tipoDeDescontoPorPedido) {
     this.data = data;

@@ -60,24 +60,6 @@ class CategoriaRepositoryTest {
                     categorias.get(1))
     );
 
-//    List<Pedido> pedidos = List.of(
-//            new Pedido(
-//                    LocalDate.now(),
-//                    new Cliente("Ana",
-//                            "11122233344",
-//                            "1122224444",
-//                            new Endereco("Rua Um",
-//                                    "22",
-//                                    "Centro",
-//                                    "Catotas",
-//                                    "São Paulo",
-//                                    "São Paulo"),
-//                            new Usuario("joaninha@email.com",
-//                                    "123456", new Perfil())),
-//                    new BigDecimal("0"),
-//                    "NENHUM")
-//    );
-
     categoriaRepository.saveAll(categorias);
     List<Categoria> categoriaList = categoriaRepository.findAll();
 

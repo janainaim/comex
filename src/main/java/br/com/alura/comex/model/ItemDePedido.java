@@ -27,9 +27,6 @@ public class ItemDePedido {
   @Column(name = "tipo_de_desconto_por_item_de_pedido")
   private TipoDeDescontoPorItemDePedido tipoDeDescontoPorItemDePedido;
 
-  public ItemDePedido() {
-  }
-
   public ItemDePedido(BigDecimal precoUnitario, Long quantidade,
                       Produto produto, Pedido pedido,
                       BigDecimal desconto,
