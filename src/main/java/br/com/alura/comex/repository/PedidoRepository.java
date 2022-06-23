@@ -10,13 +10,16 @@ import org.springframework.stereotype.Repository;
 @Repository
 public interface PedidoRepository extends JpaRepository<Pedido, Long> {
 
+
   @Query(value = "SELECT c.nome AS nomeCategoria, COUNT(i.id) AS quantidadeProdutosVendidos, "
-          + "SUM((i.preco_unitario * i.quantidade)) AS montanteVendido "
+          + "SUM((i.preco_unitario)) AS montanteVendido "
           + "FROM pedidos "
           + "JOIN itens_de_pedido i "
           + "JOIN produtos p "
           + "JOIN categoria c "
-          + "WHERE pedidos.id = i.pedido_id AND i.produto_id = p.id AND p.categoria_id = c.id "
-          + "GROUP BY c.id, pedidos.id, i.id", nativeQuery = true)
+          + "WHERE pedidos.id = i.pedido_id "
+          + "AND i.produto_id = p.id "
+          + "AND p.categoria_id = c.id "
+          + "GROUP BY c.id", nativeQuery = true)
   List<RelatorioPedidoPorCategoriaProjecao> gerarRelatorioDePedidosPorCategoria();
 }

@@ -20,7 +20,7 @@ import static org.junit.jupiter.api.Assertions.*;
 @ExtendWith(SpringExtension.class)
 @DataJpaTest
 @AutoConfigureTestDatabase(replace = AutoConfigureTestDatabase.Replace.NONE)
-@ActiveProfiles("test")
+//@ActiveProfiles("test")
 class PedidoRepositoryTest {
 
   @Autowired
@@ -38,21 +38,27 @@ class PedidoRepositoryTest {
   @Test
   void deveGerarRelatorioDePedidosPorCategoria() {
 
-    gerarDadosParaTeste();
-
-    List<Categoria> categoriaList = categoriaRepository.findAll();
-    List<Produto> produtoList = produtoRepository.findAll();
-    List<Pedido> pedidoList = pedidoRepository.findAll();
-    List<ItemDePedido> itemDePedidoList = itemDePedidoRepository.findAll();
+    //gerarDadosParaTeste();
 
     List<RelatorioPedidoPorCategoriaProjecao> relatorio =
             pedidoRepository.gerarRelatorioDePedidosPorCategoria();
 
-    assertNotNull(categoriaList);
-    assertNotNull(produtoList);
-    assertNotNull(pedidoList);
-    assertNotNull(itemDePedidoList);
-    assertNotNull(relatorio);
+//    assertNotNull(categoriaList);
+//    assertNotNull(produtoList);
+//    assertNotNull(pedidoList);
+//    assertNotNull(itemDePedidoList);
+
+    //Verificando se o relatório retorna 2 registros
+    assertEquals(2, relatorio.size());
+    //Verificando se o valor dos montantes dos dois registros estão corretos
+    assertEquals(new BigDecimal("700.00"), relatorio.get(0).getMontanteVendido());
+    assertEquals(new BigDecimal("30000.00"), relatorio.get(1).getMontanteVendido());
+    //Verificando se a quantidade de itens por pedidos está correta
+    assertEquals(2, relatorio.get(0).getQuantidadeProdutosVendidos());
+    assertEquals(1, relatorio.get(1).getQuantidadeProdutosVendidos());
+    //Verificando se o nome da categoria dos itens do pedido estão corretas
+    assertEquals("LIVROS", relatorio.get(0).getNomeCategoria());
+    assertEquals("CARROS", relatorio.get(1).getNomeCategoria());
 
   }
 
@@ -152,4 +158,5 @@ class PedidoRepositoryTest {
     List<ItemDePedido> itensDePedidos = List.of(itemKindlePedido1, itemKindlePedido2, itemHondaPedido3);
 
   }
+
 }
