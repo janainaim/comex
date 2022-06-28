@@ -6,6 +6,7 @@ import br.com.alura.comex.controller.form.LoginForm;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.AuthenticationException;
@@ -35,8 +36,10 @@ public class AutenticacaoController {
       String token = tokenService.gerarToken(authentication);
       return ResponseEntity.ok(new TokenDto(token, "Bearer"));
     } catch (AuthenticationException authenticationException) {
-      return ResponseEntity.badRequest().build();
-    }
+        throw new BadCredentialsException("Não foi possível criar o token");
+//      return ResponseEntity.badRequest().build();
+      }
+
   }
 
 }

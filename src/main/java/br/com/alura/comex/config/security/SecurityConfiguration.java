@@ -1,5 +1,6 @@
 package br.com.alura.comex.config.security;
 
+import br.com.alura.comex.repository.UsuarioRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.Bean;
@@ -11,18 +12,26 @@ import org.springframework.security.config.annotation.authentication.configurati
 import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
+import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityCustomizer;
 import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
+import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
 @Configuration
-@EnableWebSecurity
-@EnableGlobalMethodSecurity(prePostEnabled = true)
+//@EnableWebSecurity
+//@EnableGlobalMethodSecurity(prePostEnabled = true)
 public class SecurityConfiguration {
 
   @Autowired
   private AutenticacaoService autenticacaoService;
+
+  @Autowired
+  private TokenService tokenService;
+
+  @Autowired
+  private UsuarioRepository usuarioRepository;
 
   //Configuracoes de autenticacao
   @Bean
@@ -34,6 +43,7 @@ public class SecurityConfiguration {
             .passwordEncoder(new BCryptPasswordEncoder());
     return authenticationConfiguration.getAuthenticationManager();
   }
+
 
 
   //Configuracoes de autorizacao
@@ -49,16 +59,23 @@ public class SecurityConfiguration {
             .antMatchers(HttpMethod.GET, "/aW52YWxpZGEgcmVsYXTDs3JpbyBkZSB2ZW5kYXM/**").permitAll()
             .anyRequest().authenticated()
             .and().csrf().disable()
-            .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS);
+            .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)
+            .and().addFilterBefore(new AutenticacaoViaTokenService(tokenService, usuarioRepository),
+                    UsernamePasswordAuthenticationFilter.class);
 
     return http.build();
   }
 
 
   //Configuracoes de recursos estaticos(js, css, imagens, etc.)
+//  @Bean
+//  public WebSecurityCustomizer webSecurityCustomizer() {
+//    return web ->  web.ignoring().antMatchers("/**.html", "/v2/api-docs", "/webjars/**", "/configuration/**", "/swagger-resources/**");
+//  }
+
   @Bean
-  public WebSecurityCustomizer webSecurityCustomizer() {
-    return web ->  web.ignoring().antMatchers("/**.html", "/v2/api-docs", "/webjars/**", "/configuration/**", "/swagger-resources/**");
+  public BCryptPasswordEncoder passwordEncoder() {
+    return new BCryptPasswordEncoder();
   }
 
 }
