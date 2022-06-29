@@ -38,7 +38,6 @@ public class AutenticacaoController {
       return ResponseEntity.ok(new TokenDto(token, "Bearer"));
     } catch (AuthenticationException authenticationException) {
         throw new BadCredentialsException("Não foi possível criar o token");
-//      return ResponseEntity.badRequest().build();
       }
 
   }

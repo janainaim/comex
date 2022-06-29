@@ -74,10 +74,10 @@ class CategoriaRepositoryTest {
 
 
   //Dropando o bd de testes após cada teste
-  @AfterEach
-  public void execute() {
-    jdbcTemplate.execute("DROP DATABASE comexdb_test" );
-  }
+//  @AfterEach
+//  public void execute() {
+//    jdbcTemplate.execute("DROP DATABASE comexdb_test" );
+//  }
 
 
 }
