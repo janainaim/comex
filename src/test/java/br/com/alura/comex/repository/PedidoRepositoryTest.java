@@ -2,11 +2,14 @@ package br.com.alura.comex.repository;
 
 import br.com.alura.comex.model.*;
 import br.com.alura.comex.projecao.RelatorioPedidoPorCategoriaProjecao;
+import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabase;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
+import org.springframework.boot.test.autoconfigure.orm.jpa.TestEntityManager;
+import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 
@@ -17,45 +20,40 @@ import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-@ExtendWith(SpringExtension.class)
 @DataJpaTest
 @AutoConfigureTestDatabase(replace = AutoConfigureTestDatabase.Replace.NONE)
-//@ActiveProfiles("test")
+@ActiveProfiles("test")
 class PedidoRepositoryTest {
 
   @Autowired
-  private CategoriaRepository categoriaRepository;
-
-  @Autowired
-  private ProdutoRepository produtoRepository;
+  private JdbcTemplate jdbcTemplate;
 
   @Autowired
   private PedidoRepository pedidoRepository;
 
   @Autowired
-  private ItemDePedidoRepository itemDePedidoRepository;
+  private TestEntityManager testEntityManager;
 
   @Test
   void deveGerarRelatorioDePedidosPorCategoria() {
 
-    //gerarDadosParaTeste();
+    gerarDadosParaTeste();
 
     List<RelatorioPedidoPorCategoriaProjecao> relatorio =
             pedidoRepository.gerarRelatorioDePedidosPorCategoria();
 
-//    assertNotNull(categoriaList);
-//    assertNotNull(produtoList);
-//    assertNotNull(pedidoList);
-//    assertNotNull(itemDePedidoList);
 
     //Verificando se o relatório retorna 2 registros
     assertEquals(2, relatorio.size());
+
     //Verificando se o valor dos montantes dos dois registros estão corretos
     assertEquals(new BigDecimal("700.00"), relatorio.get(0).getMontanteVendido());
     assertEquals(new BigDecimal("30000.00"), relatorio.get(1).getMontanteVendido());
+
     //Verificando se a quantidade de itens por pedidos está correta
     assertEquals(2, relatorio.get(0).getQuantidadeProdutosVendidos());
     assertEquals(1, relatorio.get(1).getQuantidadeProdutosVendidos());
+
     //Verificando se o nome da categoria dos itens do pedido estão corretas
     assertEquals("LIVROS", relatorio.get(0).getNomeCategoria());
     assertEquals("CARROS", relatorio.get(1).getNomeCategoria());
@@ -64,99 +62,103 @@ class PedidoRepositoryTest {
 
   private void gerarDadosParaTeste() {
 
+    //Categorias
     Categoria livros =  new Categoria("LIVROS");
     Categoria carros =  new Categoria("CARROS");
 
-    List<Categoria> categorias = List.of(livros, carros);
+    testEntityManager.persist(livros);
+    testEntityManager.persist(carros);
 
 
+    //Produtos
     Produto kindle = new Produto("Kindle",
             "Dona Amazon baixe para 0 reais .-.",
             new BigDecimal("450"),
             3L,
-            categorias.get(0));
+            livros);
     Produto hondaFit = new Produto("Honda Fit",
             "Um carro longe de ser o Sedan dos sonhos, mas um baita carrinho",
             new BigDecimal("30.000"),
             1L,
-            categorias.get(1));
+            carros);
 
-    List<Produto> produtos = List.of(kindle, hondaFit);
+    testEntityManager.persist(kindle);
+    testEntityManager.persist(hondaFit);
 
 
-    List<Perfil> perfil = new ArrayList<>();
+    //Usuario
+    Usuario usuario = new Usuario("joaninha@email.com",
+            "123456", new ArrayList<>());
 
+    testEntityManager.persist(usuario);
+
+    //Cliente
+    Cliente cliente = new Cliente("Ana",
+            "11122233344",
+            "1122224444",
+            new Endereco("Rua Um",
+                    "22",
+                    "Centro",
+                    "Catotas",
+                    "São Paulo",
+                    "São Paulo"),
+            usuario);
+
+    testEntityManager.persist(cliente);
+
+
+    //Pedidos
     Pedido kindle1 = new Pedido(
             LocalDate.now(),
-            new Cliente("Ana",
-                    "11122233344",
-                    "1122224444",
-                    new Endereco("Rua Um",
-                            "22",
-                            "Centro",
-                            "Catotas",
-                            "São Paulo",
-                            "São Paulo"),
-                    new Usuario("joaninha@email.com",
-                            "123456", perfil )),
+            cliente,
             new BigDecimal("0"),
             TipoDeDescontoPorPedido.NENHUM);
     Pedido kindle2 = new Pedido(
             LocalDate.now(),
-            new Cliente("Ana",
-                    "11122233344",
-                    "1122224444",
-                    new Endereco("Rua Um",
-                            "22",
-                            "Centro",
-                            "Catotas",
-                            "São Paulo",
-                            "São Paulo"),
-                    new Usuario("joaninha@email.com",
-                            "123456", perfil )),
+            cliente,
             new BigDecimal("0"),
             TipoDeDescontoPorPedido.NENHUM);
     Pedido honda1 = new Pedido(
             LocalDate.now(),
-            new Cliente("Ana",
-                    "11122233344",
-                    "1122224444",
-                    new Endereco("Rua Um",
-                            "22",
-                            "Centro",
-                            "Catotas",
-                            "São Paulo",
-                            "São Paulo"),
-                    new Usuario("joaninha@email.com",
-                            "123456", perfil )),
+            cliente,
             new BigDecimal("0"),
             TipoDeDescontoPorPedido.NENHUM);
 
-    List<Pedido> pedidos = List.of(kindle1, kindle2, honda1);
+    testEntityManager.persist(kindle1);
+    testEntityManager.persist(kindle2);
+    testEntityManager.persist(honda1);
 
 
-
-    ItemDePedido itemKindlePedido1 = new ItemDePedido( new BigDecimal("450"),
+    //Itens de Pedido
+    ItemDePedido itemKindlePedido1 = new ItemDePedido( new BigDecimal("350"),
             1L,
             kindle,
             kindle1,
             new BigDecimal("0"),
             TipoDeDescontoPorItemDePedido.NENHUM);
-    ItemDePedido itemKindlePedido2 = new ItemDePedido( new BigDecimal("450"),
+    ItemDePedido itemKindlePedido2 = new ItemDePedido( new BigDecimal("350"),
             2L,
             kindle,
             kindle2,
             new BigDecimal("0"),
             TipoDeDescontoPorItemDePedido.NENHUM);
-    ItemDePedido itemHondaPedido3 = new ItemDePedido( new BigDecimal("450"),
+    ItemDePedido itemHondaPedido3 = new ItemDePedido( new BigDecimal("30000"),
             1L,
             hondaFit,
             honda1,
             new BigDecimal("0"),
             TipoDeDescontoPorItemDePedido.NENHUM);
 
-    List<ItemDePedido> itensDePedidos = List.of(itemKindlePedido1, itemKindlePedido2, itemHondaPedido3);
+    testEntityManager.persist(itemKindlePedido1);
+    testEntityManager.persist(itemKindlePedido2);
+    testEntityManager.persist(itemHondaPedido3);
 
+  }
+
+  //Dropando o bd de testes após cada teste
+  @AfterEach
+  public void execute() {
+    jdbcTemplate.execute("DROP DATABASE comexdb_test" );
   }
 
 }
