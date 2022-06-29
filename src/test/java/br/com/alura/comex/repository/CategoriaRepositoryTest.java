@@ -1,35 +1,33 @@
 package br.com.alura.comex.repository;
 
 
-
-import br.com.alura.comex.model.*;
+import br.com.alura.comex.model.Categoria;
+import br.com.alura.comex.model.Produto;
+import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabase;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
+import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.test.context.ActiveProfiles;
-import org.springframework.test.context.junit.jupiter.SpringExtension;
 
 import java.math.BigDecimal;
-import java.time.LocalDate;
 import java.util.List;
-import static org.junit.jupiter.api.Assertions.*;
 
-@ExtendWith(SpringExtension.class)
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+
 @DataJpaTest
 @AutoConfigureTestDatabase(replace = AutoConfigureTestDatabase.Replace.NONE)
 @ActiveProfiles("test")
 class CategoriaRepositoryTest {
 
   @Autowired
+  private JdbcTemplate jdbcTemplate;
+  @Autowired
   private CategoriaRepository categoriaRepository;
 
   @Autowired
   private  ProdutoRepository produtoRepository;
-
-//  @Autowired
-//  private TestEntityManager testEntityManager;
 
   @Test
   public void deveRetornarUmaCategoriaAoBuscarTodas(){
@@ -72,6 +70,13 @@ class CategoriaRepositoryTest {
     //Testando produtos inseridos na lista
     assertNotNull(produtoList);
 
+  }
+
+
+  //Dropando o bd de testes após cada teste
+  @AfterEach
+  public void execute() {
+    jdbcTemplate.execute("DROP DATABASE comexdb_test" );
   }
 
 
