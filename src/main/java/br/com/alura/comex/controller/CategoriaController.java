@@ -5,7 +5,9 @@ import br.com.alura.comex.controller.form.CategoriaForm;
 import br.com.alura.comex.model.Categoria;
 import br.com.alura.comex.repository.CategoriaRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cache.annotation.CacheEvict;
 import org.springframework.http.ResponseEntity;
+
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.util.UriComponentsBuilder;
 
@@ -13,6 +15,7 @@ import javax.transaction.Transactional;
 import javax.validation.Valid;
 import java.net.URI;
 import java.util.List;
+import java.util.Optional;
 
 @RestController
 @RequestMapping("categorias")
@@ -39,5 +42,21 @@ public class CategoriaController {
     URI uri = uriBuilder.path("/categorias/{id}").buildAndExpand(categoria.getId()).toUri();
     return ResponseEntity.created(uri).body(new CategoriaDto(categoria));
   }
+
+  @PutMapping("{id}")
+  @Transactional
+  public ResponseEntity<CategoriaDto> alteraStatusDaCategoria(@PathVariable Long id,
+                                                              @RequestBody @Valid CategoriaForm form) {
+
+    Optional<Categoria> buscaCategoria = categoriaRepository.findById(id);
+
+    if(buscaCategoria.isPresent()){
+      Categoria categoria = form.atualizar(id, categoriaRepository);
+      return ResponseEntity.ok(new CategoriaDto(categoria));
+    }
+
+    return ResponseEntity.notFound().build();
+  }
+
 
 }

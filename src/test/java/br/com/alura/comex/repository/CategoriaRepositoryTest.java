@@ -2,21 +2,33 @@ package br.com.alura.comex.repository;
 
 
 import br.com.alura.comex.model.Categoria;
-import br.com.alura.comex.model.Produto;
-import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabase;
+import org.springframework.boot.test.autoconfigure.orm.jpa.AutoConfigureTestEntityManager;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
+import org.springframework.boot.test.autoconfigure.orm.jpa.TestEntityManager;
+import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
+import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.http.MediaType;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.test.context.ActiveProfiles;
+import org.springframework.test.web.servlet.MockMvc;
+import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 
-import java.math.BigDecimal;
+import javax.transaction.Transactional;
+import java.net.URI;
 import java.util.List;
 
-import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.hamcrest.Matchers.equalTo;
+import static org.hamcrest.Matchers.hasSize;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
-@DataJpaTest
+@Transactional
+@SpringBootTest
+@AutoConfigureMockMvc
+@AutoConfigureTestEntityManager
 @AutoConfigureTestDatabase(replace = AutoConfigureTestDatabase.Replace.NONE)
 @ActiveProfiles("test")
 class CategoriaRepositoryTest {
@@ -29,49 +41,31 @@ class CategoriaRepositoryTest {
   @Autowired
   private  ProdutoRepository produtoRepository;
 
-  @Test
-  public void deveRetornarUmaCategoriaAoBuscarTodas(){
+  @Autowired
+  private TestEntityManager testEntityManager;
 
-    List<Categoria> categorias = categoriaRepository.findAll();
-    assertNotNull(categorias);
-
-  }
+  @Autowired
+  private MockMvc mockMvc;
 
   @Test
-  public void deveCadastrarPreviamenteDuasCategorias(){
+  void deveRetornarUmaCategoriaAoPesquisarPeloNome() throws Exception{
 
-    List<Categoria> categorias = List.of(
-            new Categoria("LIVROS"),
-            new Categoria("CARROS")
-    );
+    Categoria categoria = new Categoria("CASA");
 
-    List<Produto> produtos = List.of(
-            new Produto("Kindle",
-                    "Dona Amazon baixe para 0 reais .-.",
-                    new BigDecimal("450"),
-                    3L,
-                    categorias.get(0)),
-            new Produto("Honda Fit",
-                    "Um carro longe de ser o Sedan dos sonhos, mas um baita carrinho",
-                    new BigDecimal("30.000"),
-                    1L,
-                    categorias.get(1))
-    );
+    testEntityManager.persist(categoria);
 
-    categoriaRepository.saveAll(categorias);
-    List<Categoria> categoriaList = categoriaRepository.findAll();
+    Categoria retornoBusca = categoriaRepository.findByNome("CASA");
 
+    URI uri = new URI("/categorias");
 
-    produtoRepository.saveAll(produtos);
-    List<Produto> produtoList = produtoRepository.findAll();
-
-    //Testanto categorias inseridas da lista
-    assertNotNull(categoriaList);
-    //Testando produtos inseridos na lista
-    assertNotNull(produtoList);
+    mockMvc.perform(MockMvcRequestBuilders
+                    .get(uri)
+                    .contentType(MediaType.APPLICATION_JSON))
+            .andExpect(status().isOk())
+            .andExpect(jsonPath("$", hasSize(1)))
+            .andExpect(jsonPath("$.[0].nome", equalTo(categoria.getNome())));
 
   }
-
 
   //Dropando o bd de testes após cada teste
 //  @AfterEach

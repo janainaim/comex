@@ -91,7 +91,7 @@ class CategoriaControllerTest {
   }
 
   @Test
-  public void deveInserirUmaCategoria() throws Exception {
+  void deveInserirUmaCategoria() throws Exception {
 
     URI uri = new URI("/categorias");
 
@@ -105,6 +105,23 @@ class CategoriaControllerTest {
             .andExpect(status()
                     .is(201));
   }
+
+//  @Test
+//  void deveAlterarStatusDaCategoria() throws Exception{
+//    Categoria categoria = new Categoria("CASA");
+//
+//    testEntityManager.persist(categoria);
+//
+//    URI uri = new URI("/categorias/" + 1);
+//    //"{\"id\":\"1\",\"nome\":\"LIVROS\",\"status\":\"ATIVO\"}"
+//    JSONObject json = new JSONObject().put("status", "ATIVO");
+//
+//    mockMvc.perform(MockMvcRequestBuilders
+//                    .put(uri)
+//                    .contentType(MediaType.APPLICATION_JSON))
+//            .andExpect(status()
+//                    .is(201));
+//  }
 
 //  @AfterEach
 //  public void execute() {

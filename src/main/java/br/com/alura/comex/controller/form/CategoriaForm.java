@@ -24,4 +24,12 @@ public class CategoriaForm {
     public Categoria converter(CategoriaRepository categoriaRepository) {
         return new Categoria(nome);
     }
+
+    public Categoria atualizar(Long id, CategoriaRepository categoriaRepository) {
+        Categoria categoria = categoriaRepository.getReferenceById(id);
+
+        categoria.alteraStatus(categoria);
+
+        return categoria;
+    }
 }

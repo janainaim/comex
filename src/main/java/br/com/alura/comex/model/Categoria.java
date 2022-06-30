@@ -50,4 +50,12 @@ public class Categoria {
     this.nome = nome;
   }
 
+  public void alteraStatus(Categoria categoria){
+    if(categoria.getStatus().equals(StatusDaCategoria.ATIVO)){
+      categoria.setStatus(StatusDaCategoria.INATIVO);
+    } else{
+      categoria.setStatus(StatusDaCategoria.ATIVO);
+    }
+  }
+
 }
