@@ -1,5 +1,5 @@
-FROM openjdk:17-jre-alpine
-#FROM openjdk:11-jre-slim
+#FROM openjdk:17-jre-alpine
+FROM openjdk:11-jre-slim
 
 WORKDIR /comex
 
