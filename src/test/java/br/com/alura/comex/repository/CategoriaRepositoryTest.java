@@ -1,12 +1,13 @@
 package br.com.alura.comex.repository;
 
 
-import br.com.alura.comex.model.Categoria;
+import br.com.alura.comex.dominio.categoria.Categoria;
+import br.com.alura.comex.dominio.categoria.CategoriaRepository;
+import br.com.alura.comex.dominio.produto.ProdutoRepository;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabase;
 import org.springframework.boot.test.autoconfigure.orm.jpa.AutoConfigureTestEntityManager;
-import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.boot.test.autoconfigure.orm.jpa.TestEntityManager;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -18,7 +19,6 @@ import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 
 import javax.transaction.Transactional;
 import java.net.URI;
-import java.util.List;
 
 import static org.hamcrest.Matchers.equalTo;
 import static org.hamcrest.Matchers.hasSize;
@@ -39,7 +39,7 @@ class CategoriaRepositoryTest {
   private CategoriaRepository categoriaRepository;
 
   @Autowired
-  private  ProdutoRepository produtoRepository;
+  private ProdutoRepository produtoRepository;
 
   @Autowired
   private TestEntityManager testEntityManager;

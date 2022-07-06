@@ -1,7 +1,7 @@
 package br.com.alura.comex.controller;
 
-import br.com.alura.comex.model.Categoria;
-import br.com.alura.comex.repository.CategoriaRepository;
+import br.com.alura.comex.dominio.categoria.Categoria;
+import br.com.alura.comex.dominio.categoria.CategoriaRepository;
 import org.json.JSONObject;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,7 +14,6 @@ import org.springframework.http.MediaType;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.web.servlet.MockMvc;
-import org.springframework.test.web.servlet.ResultMatcher;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 
 import javax.transaction.Transactional;

@@ -1,17 +1,23 @@
 package br.com.alura.comex.repository;
 
-import br.com.alura.comex.model.*;
-import br.com.alura.comex.projecao.RelatorioPedidoPorCategoriaProjecao;
-import org.junit.jupiter.api.AfterEach;
+import br.com.alura.comex.dominio.categoria.Categoria;
+import br.com.alura.comex.dominio.cliente.Cliente;
+import br.com.alura.comex.dominio.cliente.Endereco;
+import br.com.alura.comex.dominio.itemDePedido.ItemDePedido;
+import br.com.alura.comex.dominio.itemDePedido.TipoDeDescontoPorItemDePedido;
+import br.com.alura.comex.dominio.pedido.Pedido;
+import br.com.alura.comex.dominio.pedido.PedidoRepository;
+import br.com.alura.comex.dominio.pedido.TipoDeDescontoPorPedido;
+import br.com.alura.comex.dominio.produto.Produto;
+import br.com.alura.comex.dominio.usuario.Usuario;
+import br.com.alura.comex.aplicacao.relatorios.RelatorioPedidoPorCategoriaProjecao;
 import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabase;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.boot.test.autoconfigure.orm.jpa.TestEntityManager;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.test.context.ActiveProfiles;
-import org.springframework.test.context.junit.jupiter.SpringExtension;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;
