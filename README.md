@@ -11,7 +11,7 @@
 #### DDD
 
 **- Quais padrões táticos do DDD cada classe implementa?**
-###### <span style="color: light-gray">Acredito que as classes seguem uma linguagem ubíqua, tendo nomemclaturas claras e próximas ao contexto do mundo real. <span>
+###### <span style="color: light-gray">Acredito que as classes seguem uma linguagem ubíqua, tendo nomenclaturas claras e próximas ao contexto do mundo real. <span>
 
   
 **- Quais os agregados da aplicação, qual sua raiz e que classes os compõem?**
