@@ -35,3 +35,19 @@ _Chegou a hora de fazer com o que o Comex lide com pagamentos._
 
 #### Diagrama de implantação na AWS
 
+_E aí, Dev<T>? Bora mergulhar na parte de Infra?_
+
+* Faça um diagrama de implantação, que mostra onde o código da sua Arquitetura definida na tarefa anterior será executada!
+
+* Para fazer o diagrama, utilize ferramentas como:
+  * draw.io, buscando por AWS em Search shapes
+  * excalidraw.com, clicando no ícone de livrinho > em Procurar bibliotecas e escolhendo uma biblioteca de AWS
+
+* Considere os seguintes serviços da AWS:
+  - EC2
+  - RDS
+  - ELB
+  - Elasticache
+
+_Bônus: qual o serviço da AWS que cuida de Monitoramento? Inclua no seu diagrama!_
+
