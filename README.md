@@ -51,3 +51,4 @@ _E aí, Dev<T>? Bora mergulhar na parte de Infra?_
 
 _Bônus: qual o serviço da AWS que cuida de Monitoramento? Inclua no seu diagrama!_
 
+![Untitled Diagram drawio (1)](https://user-images.githubusercontent.com/105435774/178832495-7573d573-0015-4edd-b8d1-29a13042da37.png)
