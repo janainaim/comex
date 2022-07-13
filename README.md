@@ -14,22 +14,24 @@ _Chegou a hora de fazer com o que o Comex lide com pagamentos._
 ###### <span style="color: light-gray">Escreva no `README` do seu projeto o que você pretende fazer, respondendo as seguintes perguntas:</span>
 
 **1. Você criará um serviço separado ou fará no seu projeto atual?**
-###### <span style="color: light-gray"> O serviço será separado, explicar um pouco do conceito de microsserviços e exemplificar os microsserviços separados do comex</span>
+###### <span style="color: light-gray"> O serviço será separado. Quando o comex foi separado em domínios houve a necessidade de sepração entre:</span>
+
+###### <span style="color: light-gray"> - Loja: responsável pelo gerenciamento de pedidos, retirada de produtos no estoque, controle de clientes por pedidos, etc;</span>
+
+###### <span style="color: light-gray"> - Estoque: gerenciamento dos produtos existentes, quantidade de cada produto em estoque, responsabilidade de repor o estoque seja com fornecedores ou algo do gênero;</span>
+
+###### <span style="color: light-gray">Portanto, o processo de pagamento tende a ser um serviço único. Por exemplo, se a parte de pagamentos estiver fora do ar ainda assim o cliente conseguirá fazer um pedido e o pagamento ficaria "pendente" até ser normalizado.</span>
 
 **2. o Banco de Dados será separado ou será o mesmo do seu projeto atual?**
-###### <span style="color: light-gray">Lidar com pagamentos terá um fluxo diferente de produtos, clientes. Vai ser mais interessante separar cada banco para cada serviço (explicar o conceito por trás disso); <span>
+###### <span style="color: light-gray">Lidar com pagamentos terá um fluxo diferente de entrada e saída comparado ao gerencimaneto de pedidos, produtos, clientes, etc. Vai ser mais interessante separar cada banco para cada serviço (um pra um). Com isso, cada serviço se tornaria realmente independente em todos os aspectos, o que faria com que cada microsserviço tivesse de fato uma autonomia. <span>
 
-  
+
 **3.  Você precisará de um API Gateway? Se sim, quais as responsabilidades dessa peça da sua arquitetura?**
-###### <span style="color: light-gray">Sim, será responsável pelo controle de fluxo, fraudes (verificar certinho o conceito), o gateway vai acessar cada serviço algo assim<span>
+###### <span style="color: light-gray">Sim, ele será responsável pelo controle de fluxo de acesso entre os serviços (como uma "porteira" mesmo) garantindo o redirecionamento correto e de forma balancedada conforme demanda. Além disso, o Gateway auxilia na proteção contra ataques maliciosos, pois não permite sobrecarga nos serviços além de autenticar todo tráfego antes de liberá-lo para o serviço requisitado. <span>
 
   
 **4. O sistema de notas fiscais será um projeto separado do de pagamentos ou os times serão unidos?**
-###### <span style="color: light-gray"> Separado, as notas fiscais podem ser de compra ou venda (eu acho), e se houver redimensionamento, etc, mais fácil serem microsserviços amigos do que tudo fazer parte do mesmo serviço
-conceito de assincrono sobre demora no pagamento, geração de nota.<span>  
+###### <span style="color: light-gray"> Separado, as notas fiscais podem ser de compra (caso seja descrito na documentação essa funcionalidade ou até mesmo implementado posteriormente) ou venda. Com isso, o processo de geração de nota fiscal fica independente do pagamento podendo ser atualizado de forma assíncrona, além de possibilitar a atualização sem comprometer o sistema de pagamentos, da loja ou controle de estoque.<span>  
 
-#### MS-rascunho
-- Loja (pedidos, clientes) - liga a estpque/pagamentos/juridico
-- Estoque (produtos, quantidades, fornecedores) - liga a loja(retira quant)/juridico???
-- Pagamentos (tipo de pagamento, status) - liga a loja e estoque?
-- Jurídico - notas fiscais (de vendas na loja e de reposição de estoque) - liga a loja/pagamentos/estoque?
+#### Diagrama de implantação na AWS
+
